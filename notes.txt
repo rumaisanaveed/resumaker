@@ -1,0 +1,26 @@
+backend setup 
+resume id
+username 
+password 
+email
+
+collection
+Books (books are of same type and to gather the same data at one place, we use collection)
+Documents 
+book (each book will have diff propeties)
+
+User 
+username
+password
+email
+
+User Resumes 
+ - User Resume 
+    - id 
+    - username
+    - userid
+    - password
+    - email
+
+
+

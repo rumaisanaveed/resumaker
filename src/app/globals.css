@@ -2,32 +2,135 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+@import url("https://fonts.googleapis.com/css?family=Poppins");
+
+.rm-faq-accordion .ant-collapse-item {
+  border: 3px solid black;
+  background-color: #fff !important;
+  padding: 8px 0 8px 10px;
+  text-align: left;
+  color: black;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+.rm-faq-accordion .ant-collapse-header {
+  flex-direction: row-reverse !important;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.rm-faq-accordion .ant-collapse-expand-icon .ant-collapse-arrow {
+  font-weight: bold !important;
+  color: black;
+  display: none;
+}
+
+.rm-faq-accordion .ant-collapse-content-box p {
+  color: #494f66 !important;
+  font-size: 15px !important;
+  padding-bottom: 10px;
+}
+
+.rm-faq-accordion .ant-collapse-item:last-child {
+  border-bottom: 3px solid black;
+}
+
+.rm-faq-accordion .ant-collapse-item:last-child {
+  border-radius: 0 !important;
+}
+
+.blur-bg {
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.8); /* Adjust the color and opacity */
+  transition: backdrop-filter 0.3s ease, background-color 0.3s ease;
+}
+
+.cl-internal-1dauvpw {
+  display: none !important;
+}
+
+.cl-footer 🔒️ .cl-internal-4x6jej {
+  background: white !important;
+}
+
+.cl-internal-1hp5nqm {
+  display: none !important;
+}
+
+.rm-resume-title-modal .ant-modal {
+  top: 300px !important;
+}
+
+.rm-resume-title-modal .ant-modal-mask {
+  background-color: rgb(2 2 2 / 78%) !important;
+}
+
+.rm-resume-title-modal .ant-modal-title {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.rm-resume-title-modal .ant-input {
+  border-color: #a133ff !important;
+}
+
+.rm-resume-title-modal .ant-modal-footer {
+  margin-top: 20px !important;
+}
+
+.rm-resume-title-modal .ant-modal-footer .ant-btn-default {
+  border: none !important;
+  color: black !important;
+  font-weight: 600;
+  font-size: 16px !important;
+}
+
+.rm-resume-title-modal .ant-modal-footer .ant-btn-default:hover {
+  background-color: #f4f4f4 !important;
+  border-radius: 5px !important;
+}
+
+.rm-resume-title-modal .ant-modal-footer .ant-btn-primary {
+  background-color: #a133ff !important;
+  color: white !important;
+  font-weight: 600;
+  font-size: 16px !important;
+}
+
+.rm-resume-title-modal .ant-modal-footer .ant-btn-primary:hover {
+  background-color: white !important;
+  border: 1px solid #a133ff;
+  color: #a133ff !important;
+}
+
+@media only screen and (max-width: 624px) {
+  .rm-resume-title-modal .ant-modal {
+    width: 380px !important;
   }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+.resume-bg-image {
+  background-image: url(/resume.png);
+  background-position: top center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.rm-form .ant-form-item-required,
+.rm-form .ant-form-item-label {
+  font-size: 15px !important;
+  color: black !important;
+  font-weight: 600;
+}
+
+.rm-form .ant-input:hover,
+.rm-form .ant-input:focus,
+.rm-form .ant-input:focus-within,
+.rm-form .ant-input:visited {
+  border: 1px solid #a133ff !important;
+}
+
+.rm-form .ant-select-selection-placeholder {
+  color: #494f66 !important;
 }
