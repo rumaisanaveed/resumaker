@@ -1,4 +1,4 @@
-import { variables } from "@/app/constantStyles";
+import { variables } from "@/app/styles/cssInJsStyles/constantStyles";
 import { SignIn } from "@clerk/nextjs";
 import React from "react";
 

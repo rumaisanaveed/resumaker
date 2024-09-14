@@ -2,7 +2,7 @@ import { Form, Input } from "antd";
 import React from "react";
 import { ActiveFormHeader } from "../ActiveFormHeader";
 import Button from "../buttons/Button";
-import globalStyles from "@/app/globalStyles";
+import globalStyles from "@/app/styles/cssInJsStyles/globalStyles";
 
 export const PersonalDetailsForm = () => {
   const inputYPadding = "py-2";

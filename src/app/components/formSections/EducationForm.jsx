@@ -1,5 +1,5 @@
 import React from "react";
-import globalStyles from "@/app/globalStyles";
+import globalStyles from "@/app/styles/cssInJsStyles/globalStyles";
 import { ActiveFormHeader } from "../ActiveFormHeader";
 import { Form, Input, DatePicker } from "antd";
 import Button from "../buttons/Button";

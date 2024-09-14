@@ -1,4 +1,4 @@
-import globalStyles from "@/app/globalStyles";
+import globalStyles from "@/app/styles/cssInJsStyles/globalStyles";
 import React from "react";
 import { ActiveFormHeader } from "../ActiveFormHeader";
 import { Form, Input } from "antd";

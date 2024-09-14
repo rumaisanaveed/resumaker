@@ -19,7 +19,13 @@ export default function RootLayout({ children }) {
   return (
     <Providers>
       <ClerkProvider>
-        <ConfigProvider theme={{ token: { colorPrimary: "#a133ff" } }}>
+        <ConfigProvider
+          theme={{
+            token: {
+              colorPrimary: "#a133ff",
+            },
+          }}
+        >
           <html lang="en">
             <body className={poppins.className}>{children}</body>
           </html>
