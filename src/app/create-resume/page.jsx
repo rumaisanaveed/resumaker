@@ -15,8 +15,8 @@ export default function Page() {
   return (
     <ProtectedLayout>
       <MainLayout>
-        <div className="w-full px-8 py-8 lg:px-20 lg:py-12 flex flex-col md:flex-row lg:justify-between gap-5">
-          <div className="w-full">
+        <div className="w-full p-8 xl:px-20 lg:py-12 flex flex-col gap-9 md:items-center md:justify-center lg:items-start lg:flex-row lg:justify-between lg:gap-5">
+          <div className="w-full md:w-3/4">
             {/* handle the form step in the context */}
             <FormSectionHeader />
             {/* render the active form component */}

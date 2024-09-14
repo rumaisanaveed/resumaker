@@ -9,15 +9,33 @@ export const Projects = () => {
       <SectionHeading heading="Projects" />
       <Separator />
       <div>
-        <div>
+        <div className="font-semibold flex flex-col items-start justify-start md:flex-row md:items-center md:justify-between">
           <h1>{dummy.projects.name}</h1>
           <p>{dummy.projects.duration}</p>
         </div>
-        <p>Tech Stack : {dummy.projects.techStack}</p>
-        <p>Live Demo : {dummy.projects.liveLink}</p>
-        <p>GitHub Link : {dummy.projects.githubLink}</p>
+
+        <div className="font-semibold flex md:items-center gap-1 flex-col md:flex-row items-start justify-start">
+          <span>Tech Stack :</span>
+          <span className="font-light">{dummy.projects.techStack}</span>
+        </div>
+
+        <div className="font-semibold flex md:items-center gap-1 flex-col md:flex-row items-start justify-start">
+          <span>Live Demo :</span>
+          <a
+            target="blank"
+            className="font-light"
+            href={dummy.projects.liveLink}
+          >
+            {dummy.projects.liveLink}
+          </a>
+        </div>
       </div>
-      <div>{dummy.projects.description}</div>
+
+      <div className="mt-2">
+        <p>{dummy.projects.description.point1}</p>
+        <p>{dummy.projects.description.point2}</p>
+        <p>{dummy.projects.description.point3}</p>
+      </div>
     </div>
   );
 };

@@ -5,13 +5,19 @@ import dummy from "@/app/data/dummy";
 
 export const Skills = () => {
   return (
-    <div>
+    <>
       <SectionHeading heading="Skills" />
       <Separator />
-      <div>
-        <p>Programming : {dummy.skills.programming}</p>
-        <p>Tools : {dummy.skills.tools}</p>
-      </div>
-    </div>
+      <>
+        <p className="font-semibold">
+          Programming : &nbsp;
+          <span className="font-light">{dummy.skills.programming}</span>
+        </p>
+        <p className="font-semibold">
+          Tools : &nbsp;{" "}
+          <span className="font-light">{dummy.skills.tools}</span>
+        </p>
+      </>
+    </>
   );
 };

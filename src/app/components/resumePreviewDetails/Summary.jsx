@@ -6,7 +6,11 @@ export const Summary = () => {
   return (
     <>
       <Separator />
-      <div>{dummy.summary}</div>
+      <div>
+        <p>{dummy.summary.intro}</p>
+        <p>{dummy.summary.skills}</p>
+        <p>{dummy.summary.experience}</p>
+      </div>
     </>
   );
 };
