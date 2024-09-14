@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import Button from "./buttons/Button";
 import { BsHouseDoor } from "react-icons/bs";
 import { CiGrid41 } from "react-icons/ci";
@@ -11,7 +11,7 @@ export const FormSectionHeader = () => {
   const { activeFormStep, setActiveFormStep } = useContext(FormContext);
 
   const handleFormNextStep = () => {
-    if (activeFormStep < 5) {
+    if (activeFormStep < 6) {
       setActiveFormStep((prevStep) => prevStep + 1);
     }
   };

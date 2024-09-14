@@ -1,5 +1,5 @@
 import React from "react";
 
 export const ResumePreview = () => {
-  return <div className="bg-black w-full">ResumePreview</div>;
+  return <div className="bg-white w-full">ResumePreview</div>;
 };

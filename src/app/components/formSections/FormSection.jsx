@@ -6,6 +6,7 @@ import { ExperienceForm } from "./ExperienceForm";
 import { SkillsForm } from "./SkillsForm";
 import { EducationForm } from "./EducationForm";
 import FormContext from "../../context/FormContext";
+import { ProjectsForm } from "./ProjectsForm";
 
 export const FormSection = () => {
   const { activeFormStep } = useContext(FormContext);
@@ -14,8 +15,9 @@ export const FormSection = () => {
       {activeFormStep === 1 && <PersonalDetailsForm />}
       {activeFormStep === 2 && <SummaryForm />}
       {activeFormStep === 3 && <ExperienceForm />}
-      {activeFormStep === 4 && <SkillsForm />}
-      {activeFormStep === 5 && <EducationForm />}
+      {activeFormStep === 4 && <ProjectsForm />}
+      {activeFormStep === 5 && <SkillsForm />}
+      {activeFormStep === 6 && <EducationForm />}
     </div>
   );
 };

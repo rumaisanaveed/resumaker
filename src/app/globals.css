@@ -131,6 +131,25 @@
   border: 1px solid #a133ff !important;
 }
 
+.rm-form .ant-picker-outlined:hover,
+.rm-form .ant-picker-outlined:focus,
+.rm-form .ant-picker-outlined:focus-within,
+.rm-form .ant-picker-outlined:visited {
+  border: 1px solid #a133ff !important;
+}
+
 .rm-form .ant-select-selection-placeholder {
   color: #494f66 !important;
+}
+
+.rm-multi-select .ant-select-multiple .ant-select-selector {
+  height: 40px !important;
+}
+
+.rm-multi-select .ant-select-multiple .ant-select-selector:focus,
+.rm-multi-select .ant-select-multiple .ant-select-selector:hover,
+.rm-multi-select .ant-select-multiple .ant-select-selector:visited,
+.rm-multi-select .ant-select-multiple .ant-select-selector:active,
+.rm-multi-select .ant-select-multiple .ant-select-selector:focus-within {
+  border: 1px solid #a133ff !important ;
 }

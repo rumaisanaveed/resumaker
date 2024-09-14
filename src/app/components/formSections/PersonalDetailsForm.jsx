@@ -78,7 +78,6 @@ export const PersonalDetailsForm = () => {
             className={`${inputYPadding}`}
           />
         </Form.Item>
-
         <Form.Item>
           <Button type="primary" className="py-1.5 px-5">
             Save

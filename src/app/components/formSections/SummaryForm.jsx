@@ -12,18 +12,20 @@ export const SummaryForm = () => {
         title="Summary"
         description="Add summary for your job title"
       />
-      <Form
-        className="rm-form"
-        layout="vertical"
-        rules={[
-          {
-            required: true,
-            message: "Please input summary!",
-          },
-        ]}
-      >
-        <Form.Item label="Summary">
-          <TextArea rows={6} />
+      <Form className="rm-form" layout="vertical" name="summary-form">
+        <Form.Item
+          label="Summary"
+          rules={[
+            {
+              required: true,
+              message: "Please input summary!",
+            },
+          ]}
+        >
+          <TextArea
+            rows={6}
+            placeholder="Enter profile summary in the form of points.."
+          />
         </Form.Item>
         <Form.Item>
           <Button type="primary" className="py-1.5 px-5">
