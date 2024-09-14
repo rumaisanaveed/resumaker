@@ -69,10 +69,6 @@
   font-weight: 700;
 }
 
-.rm-resume-title-modal .ant-input {
-  border-color: #a133ff !important;
-}
-
 .rm-resume-title-modal .ant-modal-footer {
   margin-top: 20px !important;
 }
@@ -90,7 +86,7 @@
 }
 
 .rm-resume-title-modal .ant-modal-footer .ant-btn-primary {
-  background-color: #a133ff !important;
+  /* background-color: #a133ff !important; */
   color: white !important;
   font-weight: 600;
   font-size: 16px !important;
@@ -98,7 +94,6 @@
 
 .rm-resume-title-modal .ant-modal-footer .ant-btn-primary:hover {
   background-color: white !important;
-  border: 1px solid #a133ff;
   color: #a133ff !important;
 }
 
@@ -124,32 +119,10 @@
   font-weight: 600;
 }
 
-.rm-form .ant-input:hover,
-.rm-form .ant-input:focus,
-.rm-form .ant-input:focus-within,
-.rm-form .ant-input:visited {
-  border: 1px solid #a133ff !important;
-}
-
-.rm-form .ant-picker-outlined:hover,
-.rm-form .ant-picker-outlined:focus,
-.rm-form .ant-picker-outlined:focus-within,
-.rm-form .ant-picker-outlined:visited {
-  border: 1px solid #a133ff !important;
-}
-
 .rm-form .ant-select-selection-placeholder {
   color: #494f66 !important;
 }
 
 .rm-multi-select .ant-select-multiple .ant-select-selector {
   height: 40px !important;
-}
-
-.rm-multi-select .ant-select-multiple .ant-select-selector:focus,
-.rm-multi-select .ant-select-multiple .ant-select-selector:hover,
-.rm-multi-select .ant-select-multiple .ant-select-selector:visited,
-.rm-multi-select .ant-select-multiple .ant-select-selector:active,
-.rm-multi-select .ant-select-multiple .ant-select-selector:focus-within {
-  border: 1px solid #a133ff !important ;
 }

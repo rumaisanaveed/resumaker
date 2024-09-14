@@ -8,7 +8,7 @@ import { Education } from "./resumePreviewDetails/Education";
 
 export const ResumePreview = () => {
   return (
-    <div className="bg-white w-full">
+    <div className="bg-white w-full shadow-md rounded p-6 border border-gray-100">
       <PersonalDetails />
       <Summary />
       <WorkExperience />

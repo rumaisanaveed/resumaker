@@ -17,5 +17,15 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addBase, theme }) {
+      addBase({
+        ":root": {
+          "--color-primary": theme("colors.custom-purple"),
+          "--color-secondary": theme("colors.custom-gray"),
+          // Add more variables as needed
+        },
+      });
+    },
+  ],
 };
