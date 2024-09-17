@@ -2,7 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getFireStore } from "firebase/app";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyACr7BOlJM0pdxz1VO0LEz7ZfTm7lN3Dk0",
+  apiKey: process.env.API_KEY,
   authDomain: "resumaker-b06f3.firebaseapp.com",
   projectId: "resumaker-b06f3",
   storageBucket: "resumaker-b06f3.appspot.com",
