@@ -1,5 +1,15 @@
-import React from "react";
+"use client";
+import Context from "@/app/context/Context";
+import React, { useContext } from "react";
 
 export const Separator = () => {
-  return <div className=" border-custom-purple border-t-[3.5px] pb-3" />;
+  const { themeColor } = useContext(Context);
+  return (
+    <div
+      className="border-t-[3.5px] pb-3"
+      style={{
+        borderColor: themeColor,
+      }}
+    />
+  );
 };

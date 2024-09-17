@@ -1,7 +1,6 @@
 "use client";
-
-import { FormContextProvider } from "./context/FormContext";
+import { ContextProvider } from "./context/Context";
 
 export function Providers({ children }) {
-  return <FormContextProvider>{children}</FormContextProvider>;
+  return <ContextProvider>{children}</ContextProvider>;
 }

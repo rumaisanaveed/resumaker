@@ -6,9 +6,16 @@ import { Projects } from "./resumePreviewDetails/Projects";
 import { Skills } from "./resumePreviewDetails/Skills";
 import { Education } from "./resumePreviewDetails/Education";
 
-export const ResumePreview = () => {
+export const ResumePreview = ({ additionalClasses, additionalStyles }) => {
+  // Determine the base classes and conditional classes
+  const baseClasses =
+    "bg-white w-full shadow-md rounded py-6 px-9 resume border border-gray-100";
+  const conditionalClasses = additionalClasses
+    ? `${additionalClasses} ${baseClasses}`
+    : `${baseClasses} md:w-3/4`;
+
   return (
-    <div className="bg-white w-full shadow-md rounded md:w-3/4 py-6 px-9 border border-gray-100">
+    <div className={conditionalClasses} style={additionalStyles}>
       <PersonalDetails />
       <Summary />
       <WorkExperience />

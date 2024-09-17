@@ -126,3 +126,12 @@
 .rm-multi-select .ant-select-multiple .ant-select-selector {
   height: 40px !important;
 }
+
+@media print {
+  #no-download {
+    display: none;
+  }
+  #resume-download {
+    display: block;
+  }
+}

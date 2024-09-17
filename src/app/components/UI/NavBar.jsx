@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Cherry_Swash } from "next/font/google";
 import { UserButton, useUser } from "@clerk/nextjs";
 import CustomLink from "../buttons/CustomLink";
+import Link from "next/link";
 
 const cherrySwash = Cherry_Swash({
   weight: "400",
@@ -36,11 +37,12 @@ export default function NavBar() {
         isScrolled ? "blur-bg" : ""
       }`}
     >
-      <h1
+      <Link
+        href="/"
         className={`${cherrySwash.className} text-custom-purple font-extrabold text-xl md:text-3xl`}
       >
         ResuMaker
-      </h1>
+      </Link>
       <div className="flex items-center gap-3 flex-row-reverse">
         {isSignedIn ? (
           <>
@@ -62,12 +64,12 @@ export default function NavBar() {
         )}
         {isSignedIn && (
           <>
-            <CustomLink
+            <Link
               className="border-black text-sm border px-3 py-2 rounded hover:bg-black hover:text-white"
               href="/dashboard"
             >
               Dashboard
-            </CustomLink>
+            </Link>
           </>
         )}
       </div>
