@@ -1,13 +1,19 @@
+"use client";
 import globalStyles from "@/app/styles/cssInJsStyles/globalStyles";
-import React from "react";
+import React, { useState } from "react";
 import { ActiveFormHeader } from "../ActiveFormHeader";
 import { Form, Input, DatePicker } from "antd";
 import Button from "../buttons/Button";
 import { IoAddOutline } from "react-icons/io5";
 import { FiMinus } from "react-icons/fi";
+import { RichTextEditor } from "../RichTextEditor";
 
 export const ExperienceForm = () => {
-  const { TextArea } = Input;
+  const [summary, setSummary] = useState("");
+
+  const onChange = (e) => {
+    setSummary(e.target.value);
+  };
 
   return (
     <div className={globalStyles.formComponentContainer}>
@@ -63,7 +69,7 @@ export const ExperienceForm = () => {
             },
           ]}
         >
-          <TextArea rows={6} className="w-full" />
+          <RichTextEditor value={summary} onChange={onChange} />
         </Form.Item>
         <div className={globalStyles.footerBtnsContainer}>
           <div className={globalStyles.footerBtnsColOne}>

@@ -4,6 +4,7 @@ import MainLayout from "../layouts/MainLayout";
 import { FormSectionHeader } from "../components/FormSectionHeader";
 import { ResumePreview } from "../components/ResumePreview";
 import { FormSection } from "../components/formSections/FormSection";
+import { ResponsiveWrapper } from "../components/ResponsiveWrapper";
 
 export const metadata = {
   title: "Create Resume - ResuMaker",
@@ -15,16 +16,18 @@ export default function Page() {
   return (
     <ProtectedLayout>
       <MainLayout>
-        <div className="w-full p-8 xl:px-20 lg:py-12 flex flex-col gap-9 md:items-center md:justify-center lg:items-start lg:flex-row lg:justify-between lg:gap-5">
-          <div className="w-full md:w-3/4">
-            {/* handle the form step in the context */}
-            <FormSectionHeader />
-            {/* render the active form component */}
-            <FormSection />
+        <ResponsiveWrapper>
+          <div className="w-full p-8 xl:px-20 lg:py-12 flex flex-col gap-9 md:items-center md:justify-center lg:items-start lg:flex-row lg:justify-between lg:gap-5">
+            <div className="w-full md:w-3/4">
+              {/* handle the form step in the context */}
+              <FormSectionHeader />
+              {/* render the active form component */}
+              <FormSection />
+            </div>
+            {/* render the active component */}
+            <ResumePreview />
           </div>
-          {/* render the active component */}
-          <ResumePreview />
-        </div>
+        </ResponsiveWrapper>
       </MainLayout>
     </ProtectedLayout>
   );

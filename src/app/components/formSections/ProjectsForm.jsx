@@ -1,12 +1,19 @@
+"use client";
 import globalStyles from "@/app/styles/cssInJsStyles/globalStyles";
-import React from "react";
+import React, { useState } from "react";
 import { ActiveFormHeader } from "../ActiveFormHeader";
 import { Form, Input, DatePicker, Select } from "antd";
 import Button from "../buttons/Button";
 import { IoAddOutline } from "react-icons/io5";
 import { FiMinus } from "react-icons/fi";
+import { RichTextEditor } from "../RichTextEditor";
 
 export const ProjectsForm = () => {
+  const [description, setDescription] = useState("");
+
+  const onChange = (e) => {
+    setDescription(e.target.value);
+  };
   const techOptions = [
     { value: "React.js" },
     { value: "React Native" },
@@ -20,7 +27,6 @@ export const ProjectsForm = () => {
     { value: "MongoDB" },
     { value: "TypeScript" },
   ];
-  const { TextArea } = Input;
   return (
     <div className={globalStyles.formComponentContainer}>
       <ActiveFormHeader
@@ -105,11 +111,7 @@ export const ProjectsForm = () => {
             },
           ]}
         >
-          <TextArea
-            rows={6}
-            className="w-full"
-            placeholder="Enter project description in the form of points..."
-          />
+          <RichTextEditor value={description} onChange={onChange} />
         </Form.Item>
         <div className={globalStyles.footerBtnsContainer}>
           <div className={globalStyles.footerBtnsColOne}>

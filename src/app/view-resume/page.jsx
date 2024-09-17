@@ -6,6 +6,7 @@ import ProtectedLayout from "../components/routes/ProtectedRoute";
 import Button from "../components/buttons/Button";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { ResponsiveWrapper } from "../components/ResponsiveWrapper";
 
 export default function Page() {
   const [loader, setLoader] = useState(false);
@@ -27,28 +28,30 @@ export default function Page() {
   return (
     <ProtectedLayout>
       <MainLayout>
-        <div className="xl:max-w-5xl lg:max-w-3xl mx-auto mt-12 px-6 text-center">
-          <h1 className="text-black font-semibold text-3xl pt-5 pb-3">
-            Congrats! Your resume is ready!
-          </h1>
-          <p className="text-gray-500 font-light max-w-md mx-auto xl:max-w-full">
-            Now you are ready to download your resume and you can share it with
-            your employers.
-          </p>
-          <div className="pt-9">
-            <Button onClick={() => handleGeneratePdf()} disabled={loader}>
-              {loader ? <span>Downloading...</span> : <span>Download</span>}
-            </Button>
+        <ResponsiveWrapper>
+          <div className="xl:max-w-5xl lg:max-w-3xl mx-auto mt-12 px-6 text-center">
+            <h1 className="text-black font-semibold text-3xl pt-5 pb-3">
+              Congrats! Your resume is ready!
+            </h1>
+            <p className="text-gray-500 font-light max-w-md mx-auto xl:max-w-full">
+              Now you are ready to download your resume and you can share it
+              with your employers.
+            </p>
+            <div className="pt-9">
+              <Button onClick={() => handleGeneratePdf()} disabled={loader}>
+                {loader ? <span>Downloading...</span> : <span>Download</span>}
+              </Button>
+            </div>
           </div>
-        </div>
-        <div className="flex items-center justify-center pb-12 pt-4 w-full px-6 sm:px-10">
-          <div className="my-12">
-            <ResumePreview
-              additionalClasses="md:w-4/5 mx-auto"
-              additionalStyles={{ width: "210mm", height: "305mm" }}
-            />
+          <div className="flex items-center justify-center pb-12 pt-4 w-full px-6 sm:px-10">
+            <div className="my-12">
+              <ResumePreview
+                additionalClasses="md:w-4/5 mx-auto"
+                additionalStyles={{ width: "210mm", height: "305mm" }}
+              />
+            </div>
           </div>
-        </div>
+        </ResponsiveWrapper>
       </MainLayout>
     </ProtectedLayout>
   );
