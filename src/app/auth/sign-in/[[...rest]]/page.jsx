@@ -1,6 +1,12 @@
 import { variables } from "@/app/styles/cssInJsStyles/constantStyles";
 import { SignIn } from "@clerk/nextjs";
+import dynamic from "next/dynamic";
 import React from "react";
+
+const SignIn = dynamic(
+  () => import("@clerk/nextjs").then((mod) => mod.SignIn),
+  { ssr: false }
+);
 
 export default function Page() {
   const signUpUrl = process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL;

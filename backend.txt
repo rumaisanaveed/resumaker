@@ -1,0 +1,21 @@
+users (collection)
+    - user (with a unique id) (document)
+        - resumes (sub-collection)
+            - resume (with a unique id) (document)   
+                - (fields)
+                    - title 
+                    - name 
+                    - email 
+                - (document) 
+                    personalDetails 
+                - document 
+                    summary 
+                - document 
+                    experience 
+                - document
+                    projects 
+                - document 
+                    skills 
+                - document 
+                    education 
+

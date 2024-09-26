@@ -51,7 +51,6 @@ export default function Page() {
                     <div className="resume-bg-image" />
                     <div className="absolute bottom-0 pl-3 left-0 h-10 w-full bg-gray-100 rounded-b-lg flex items-center justify-between">
                       <p className="text-sm text-black">Frontend Developer</p>
-
                       <Dropdown
                         menu={{
                           items,

@@ -5,6 +5,9 @@ import React, { useState } from "react";
 import { CiSquarePlus } from "react-icons/ci";
 
 export default function AddResume() {
+  // generate resume id and save in context
+  // take that id and go the personal details form and save the data got from that form and save it on the
+  // path /users/userId/resume
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
 

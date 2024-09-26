@@ -3,6 +3,7 @@
 const Button = ({
   className = "",
   type = "button",
+  htmlType = "submit",
   onClick = () => {},
   children,
   disabled,
@@ -14,6 +15,7 @@ const Button = ({
       onClick={onClick}
       type={type}
       disabled={disabled}
+      htmltype={htmlType}
       {...props}
     >
       {children}

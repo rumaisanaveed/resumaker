@@ -1,10 +1,24 @@
+"use client";
 import { Form, Input } from "antd";
-import React from "react";
+import React, { useEffect } from "react";
 import { ActiveFormHeader } from "../ActiveFormHeader";
 import Button from "../buttons/Button";
 import globalStyles from "@/app/styles/cssInJsStyles/globalStyles";
+import { useUser } from "@clerk/nextjs";
+import { addDoc } from "firebase/firestore";
+import { db } from "@/app/firebaseConfig";
 
 export const PersonalDetailsForm = () => {
+  const { user } = useUser();
+
+  useEffect(() => {
+    console.log(user.id);
+  }, [user.id]);
+
+  const handleSave = (values) => {
+    console.log(values);
+  };
+
   const inputYPadding = "py-2";
   return (
     <div className={globalStyles.formComponentContainer}>
@@ -12,7 +26,12 @@ export const PersonalDetailsForm = () => {
         title="Personal Details"
         description="Get Started with the basic information"
       />
-      <Form layout="vertical" rootClassName="rm-form" autoComplete="off">
+      <Form
+        layout="vertical"
+        rootClassName="rm-form"
+        autoComplete="off"
+        onFinish={handleSave}
+      >
         <Form.Item
           label="Name"
           name="username"
