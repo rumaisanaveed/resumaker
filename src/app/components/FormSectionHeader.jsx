@@ -8,7 +8,7 @@ import Context from "../context/Context";
 import { FaArrowLeft } from "react-icons/fa";
 import { ColorPicker } from "antd";
 
-export const FormSectionHeader = () => {
+export const FormSectionHeader = React.memo(() => {
   const [color, setColor] = useState("#aa16ff"); // Default color
   const { activeFormStep, setActiveFormStep } = useContext(Context);
 
@@ -75,4 +75,4 @@ export const FormSectionHeader = () => {
       </div>
     </div>
   );
-};
+});

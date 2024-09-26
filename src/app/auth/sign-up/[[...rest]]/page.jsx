@@ -1,5 +1,4 @@
 import React from "react";
-import { SignUp } from "@clerk/nextjs";
 import { variables } from "@/app/styles/cssInJsStyles/constantStyles";
 import dynamic from "next/dynamic";
 

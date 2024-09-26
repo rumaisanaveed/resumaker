@@ -3,10 +3,8 @@ import React from "react";
 import { ActiveFormHeader } from "../ActiveFormHeader";
 import { Form, Input, DatePicker, Select } from "antd";
 import Button from "../buttons/Button";
-import { IoAddOutline } from "react-icons/io5";
-import { FiMinus } from "react-icons/fi";
 
-export const SkillsForm = () => {
+const SkillsForm = () => {
   const programmingOptions = [
     { value: "React.js" },
     { value: "React Native" },
@@ -79,3 +77,5 @@ export const SkillsForm = () => {
     </div>
   );
 };
+
+export default SkillsForm;

@@ -4,7 +4,7 @@ import { ActiveFormHeader } from "../ActiveFormHeader";
 import Button from "../buttons/Button";
 import { RichTextEditor } from "../RichTextEditor";
 
-export const SummaryForm = () => {
+const SummaryForm = () => {
   const [value, setValue] = useState("");
 
   const onChange = (content) => {
@@ -27,3 +27,5 @@ export const SummaryForm = () => {
     </div>
   );
 };
+
+export default SummaryForm;

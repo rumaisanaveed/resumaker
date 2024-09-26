@@ -8,7 +8,7 @@ import { IoAddOutline } from "react-icons/io5";
 import { FiMinus } from "react-icons/fi";
 import { RichTextEditor } from "../RichTextEditor";
 
-export const ExperienceForm = () => {
+const ExperienceForm = () => {
   const [summary, setSummary] = useState("");
 
   const onChange = (e) => {
@@ -107,3 +107,5 @@ export const ExperienceForm = () => {
     </div>
   );
 };
+
+export default ExperienceForm;

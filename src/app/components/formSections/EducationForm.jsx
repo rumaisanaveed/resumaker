@@ -4,7 +4,7 @@ import { ActiveFormHeader } from "../ActiveFormHeader";
 import { Form, Input, DatePicker } from "antd";
 import Button from "../buttons/Button";
 
-export const EducationForm = () => {
+const EducationForm = () => {
   return (
     <div className={globalStyles.formComponentContainer}>
       <ActiveFormHeader
@@ -115,3 +115,5 @@ export const EducationForm = () => {
     </div>
   );
 };
+
+export default EducationForm;

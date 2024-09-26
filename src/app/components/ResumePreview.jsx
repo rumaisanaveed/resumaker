@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { PersonalDetails } from "./resumePreviewDetails/PersonalDetails";
 import { WorkExperience } from "./resumePreviewDetails/WorkExperience";

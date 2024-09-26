@@ -8,7 +8,7 @@ import { IoAddOutline } from "react-icons/io5";
 import { FiMinus } from "react-icons/fi";
 import { RichTextEditor } from "../RichTextEditor";
 
-export const ProjectsForm = () => {
+const ProjectsForm = () => {
   const [description, setDescription] = useState("");
 
   const onChange = (e) => {
@@ -149,3 +149,5 @@ export const ProjectsForm = () => {
     </div>
   );
 };
+
+export default ProjectsForm;

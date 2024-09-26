@@ -5,10 +5,8 @@ import { ActiveFormHeader } from "../ActiveFormHeader";
 import Button from "../buttons/Button";
 import globalStyles from "@/app/styles/cssInJsStyles/globalStyles";
 import { useUser } from "@clerk/nextjs";
-import { addDoc } from "firebase/firestore";
-import { db } from "@/app/firebaseConfig";
 
-export const PersonalDetailsForm = () => {
+const PersonalDetailsForm = () => {
   const { user } = useUser();
 
   useEffect(() => {
@@ -106,3 +104,5 @@ export const PersonalDetailsForm = () => {
     </div>
   );
 };
+
+export default PersonalDetailsForm;
