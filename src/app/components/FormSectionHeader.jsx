@@ -76,3 +76,5 @@ export const FormSectionHeader = React.memo(() => {
     </div>
   );
 });
+
+FormSectionHeader.displayName = "FormSectionHeader";

@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import Loading from "./loading";
 
-function Loading() {
+function LoadingHandler() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   useEffect(() => {
@@ -30,7 +30,7 @@ function Loading() {
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      <Loading />
+      <LoadingHandler />
       <Component {...pageProps} />
     </>
   );
