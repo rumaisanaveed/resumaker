@@ -46,8 +46,11 @@ export default function Page() {
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 mt-6 md:mt-3 gap-5 w-3/4 sm:w-full mx-auto sm:mx-0">
                 <AddResume />
-                {Array.from({ length: 5 }, () => (
-                  <div className="relative shadow pt-2 flex items-center justify-center transition-all rounded-lg h-[350px] md:h-[300px] border-dashed">
+                {Array.from({ length: 5 }, (_, index) => (
+                  <div
+                    key={index}
+                    className="relative shadow pt-2 flex items-center justify-center transition-all rounded-lg h-[350px] md:h-[300px] border-dashed"
+                  >
                     <div className="resume-bg-image" />
                     <div className="absolute bottom-0 pl-3 left-0 h-10 w-full bg-gray-100 rounded-b-lg flex items-center justify-between">
                       <p className="text-sm text-black">Frontend Developer</p>

@@ -1,18 +1,11 @@
 "use client";
 import { Form, Input } from "antd";
-import React, { useEffect } from "react";
+import React from "react";
 import { ActiveFormHeader } from "../ActiveFormHeader";
 import Button from "../buttons/Button";
 import globalStyles from "@/app/styles/cssInJsStyles/globalStyles";
-import { useUser } from "@clerk/nextjs";
 
 const PersonalDetailsForm = () => {
-  const { user } = useUser();
-
-  useEffect(() => {
-    console.log(user.id);
-  }, [user.id]);
-
   const handleSave = (values) => {
     console.log(values);
   };
