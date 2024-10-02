@@ -5,6 +5,7 @@ import React, { useContext, useState } from "react";
 import { CiSquarePlus } from "react-icons/ci";
 import { v4 as uuidv4 } from "uuid";
 import Context from "../context/Context";
+import { useUser } from "@clerk/nextjs";
 
 export default function AddResume() {
   // generate resume id and save in context
@@ -12,7 +13,8 @@ export default function AddResume() {
   // path /users/userId/resume
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { setResumeId } = useContext(Context);
+  const { setResumeId, setResumeTitle, resumeTitle } = useContext(Context);
+  const { user } = useUser();
 
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -24,6 +26,7 @@ export default function AddResume() {
 
   const handleCreateResume = () => {
     const newResumeId = uuidv4();
+    localStorage.setItem("resumeId", newResumeId);
     setResumeId(newResumeId);
     router.push("/create-resume");
   };
@@ -50,7 +53,11 @@ export default function AddResume() {
         okText="Create"
       >
         <p>Add a title to your new resume</p>
-        <Input className="mt-3" rootClassName="rm-resume-title-input" />
+        <Input
+          className="mt-3"
+          rootClassName="rm-resume-title-input"
+          onChange={(e) => setResumeTitle(e.target.value)}
+        />
       </Modal>
     </>
   );

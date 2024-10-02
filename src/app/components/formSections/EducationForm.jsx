@@ -1,10 +1,48 @@
-import React from "react";
+import React, { useState } from "react";
 import globalStyles from "@/app/styles/cssInJsStyles/globalStyles";
 import { ActiveFormHeader } from "../ActiveFormHeader";
 import { Form, Input, DatePicker } from "antd";
 import Button from "../buttons/Button";
+import { CgSpinner } from "react-icons/cg";
+import useLocalStorage from "@/app/hooks/useLocalStorage";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "@/app/firebaseConfig";
+import { useUser } from "@clerk/nextjs";
 
 const EducationForm = () => {
+  const { user } = useUser();
+  const [loading, setLoading] = useState(false);
+  const [resumeId, setResumeId] = useLocalStorage("resumeId");
+
+  const handleEducationSave = async () => {
+    setLoading(true);
+    try {
+      if (!resumeId || !user.id) {
+        console.error("resumeId or userId is missing");
+        setLoading(false);
+        return;
+      }
+      const { universityStartDate, universityEndDate, ...otherValues } = values;
+      const formattedStartDate = universityStartDate
+        ? universityStartDate.format("YYYY-MM-DD")
+        : null;
+      const formattedEndDate = universityEndDate
+        ? universityEndDate.format("YYYY-MM-DD")
+        : null;
+      const resumeRef = doc(db, "users", user.id, "resumes", resumeId); // users/{userId}/resumes/{resumeId}
+      const dataToSave = {
+        ...otherValues,
+        universityStartDate: formattedStartDate,
+        universityEndDate: formattedEndDate,
+      };
+      await setDoc(resumeRef, dataToSave, { merge: true });
+      console.log("Education data saved successfully!");
+    } catch (error) {
+      console.error("Error saving education data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <div className={globalStyles.formComponentContainer}>
       <ActiveFormHeader
@@ -15,6 +53,7 @@ const EducationForm = () => {
         className="rm-form grid gap-x-3 gap-y-0 grid-cols-2"
         layout="vertical"
         name="projects-form"
+        onFinish={handleEducationSave}
       >
         <Form.Item
           label="University"
@@ -71,7 +110,7 @@ const EducationForm = () => {
         <Form.Item
           label="Start Date"
           className="col-span-2 lg:col-span-1"
-          name="startDate"
+          name="universityStartDate"
           rules={[{ required: true, message: "Please input start date!" }]}
         >
           <DatePicker
@@ -81,7 +120,7 @@ const EducationForm = () => {
         </Form.Item>
         <Form.Item
           label="End Date"
-          name="endDate"
+          name="universityEndDate"
           className="col-span-2 lg:col-span-1"
           rules={[{ required: true, message: "Please input end date!" }]}
         >
@@ -108,7 +147,7 @@ const EducationForm = () => {
         </Form.Item>
         <Form.Item>
           <Button type="primary" className="py-1.5 px-5">
-            Save
+            {loading ? <CgSpinner style={{ color: "white" }} /> : <p>Save</p>}
           </Button>
         </Form.Item>
       </Form>

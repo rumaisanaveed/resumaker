@@ -2,6 +2,8 @@ users (collection)
     - user (with a unique id) (document)
         - resumes (sub-collection)
             - resume (with a unique id) (document)   
+                - title 
+                - color 
                 - (fields)
                     - title 
                     - name 
@@ -19,3 +21,9 @@ users (collection)
                 - document 
                     education 
 
+
+code refactoring 
+disable the previous button and auto move the resume step and also show
+a toast message when the data gets saved successfully 
+add validations for optional fields so that the data undefined won't save in the db 
+avoid switch case for form steps rendering

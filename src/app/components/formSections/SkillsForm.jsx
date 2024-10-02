@@ -1,10 +1,40 @@
 import globalStyles from "@/app/styles/cssInJsStyles/globalStyles";
-import React from "react";
+import React, { useState } from "react";
 import { ActiveFormHeader } from "../ActiveFormHeader";
-import { Form, Input, DatePicker, Select } from "antd";
+import { Form, Select } from "antd";
 import Button from "../buttons/Button";
+import useLocalStorage from "@/app/hooks/useLocalStorage";
+import { useUser } from "@clerk/nextjs";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "@/app/firebaseConfig";
+import { CgSpinner } from "react-icons/cg";
 
 const SkillsForm = () => {
+  const { user } = useUser();
+  const [loading, setLoading] = useState(false);
+  const [resumeId, setResumeId] = useLocalStorage("resumeId");
+
+  const handleSkillsSave = async (values) => {
+    setLoading(true);
+    try {
+      if (!resumeId || !user.id) {
+        console.error("resumeId or userId is missing");
+        setLoading(false);
+
+        return;
+      }
+      const resumeRef = doc(db, "users", user.id, "resumes", resumeId); // users/{userId}/resumes/{resumeId}
+      const dataToSave = {
+        ...values,
+      };
+      await setDoc(resumeRef, dataToSave, { merge: true });
+      console.log("Skills data saved successfully!");
+    } catch (error) {
+      console.error("Error saving skills data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
   const programmingOptions = [
     { value: "React.js" },
     { value: "React Native" },
@@ -31,7 +61,12 @@ const SkillsForm = () => {
         title="Skills"
         description="Showcase your skills to highlight your expertise and attract potential employers."
       />
-      <Form className="rm-form" layout="vertical" name="projects-form">
+      <Form
+        className="rm-form"
+        onFinish={handleSkillsSave}
+        layout="vertical"
+        name="projects-form"
+      >
         <Form.Item
           label="Programming"
           name="programming"
@@ -70,7 +105,7 @@ const SkillsForm = () => {
         </Form.Item>
         <Form.Item>
           <Button type="primary" className="py-1.5 px-5">
-            Save
+            {loading ? <CgSpinner style={{ color: "white" }} /> : <p>Save</p>}
           </Button>
         </Form.Item>
       </Form>

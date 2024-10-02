@@ -9,16 +9,23 @@ import { db } from "@/app/firebaseConfig";
 import Context from "@/app/context/Context";
 import { useUser } from "@clerk/nextjs";
 import { CgSpinner } from "react-icons/cg";
+import useLocalStorage from "@/app/hooks/useLocalStorage";
 
 const PersonalDetailsForm = () => {
   const { user } = useUser();
-  const { resumeId, resumeTitle } = useContext(Context);
+  const { resumeTitle } = useContext(Context);
   const [loading, setLoading] = useState(false);
+  const [resumeId, setResumeId] = useLocalStorage("resumeId");
 
   const handleSave = async (values) => {
     console.log("Form values:", values);
     setLoading(true);
     try {
+      if (!resumeId || !user.id) {
+        console.error("resumeId or userId is missing");
+        setLoading(false);
+        return;
+      }
       const resumeRef = doc(db, "users", user.id, "resumes", resumeId); // users/{userId}/resumes/{resumeId}
       const dataToSave = {
         ...values,

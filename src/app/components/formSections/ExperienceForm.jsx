@@ -1,18 +1,57 @@
 "use client";
 import globalStyles from "@/app/styles/cssInJsStyles/globalStyles";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { ActiveFormHeader } from "../ActiveFormHeader";
 import { Form, Input, DatePicker } from "antd";
 import Button from "../buttons/Button";
 import { IoAddOutline } from "react-icons/io5";
 import { FiMinus } from "react-icons/fi";
 import { RichTextEditor } from "../RichTextEditor";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "@/app/firebaseConfig";
+import { useUser } from "@clerk/nextjs";
+import { CgSpinner } from "react-icons/cg";
+import useLocalStorage from "@/app/hooks/useLocalStorage";
 
 const ExperienceForm = () => {
   const [summary, setSummary] = useState("");
+  const [loading, setLoading] = useState(false);
+  const { user } = useUser();
+  const [resumeId, setResumeId] = useLocalStorage("resumeId");
 
-  const onChange = (e) => {
-    setSummary(e.target.value);
+  const onChange = (content) => {
+    setSummary(content);
+  };
+
+  const handleExperienceSave = async (values) => {
+    console.log(values);
+    setLoading(true);
+    try {
+      if (!resumeId || !user.id) {
+        console.error("resumeId or userId is missing");
+        setLoading(false);
+        return;
+      }
+      const { startDate, endDate, ...otherValues } = values;
+      const formattedStartDate = startDate
+        ? startDate.format("YYYY-MM-DD")
+        : null;
+      const formattedEndDate = endDate ? endDate.format("YYYY-MM-DD") : null;
+      const ref = doc(db, "users", user.id, "resumes", resumeId);
+      const dataToSave = {
+        ...otherValues,
+        experienceSummary: summary,
+        startDate: formattedStartDate,
+        endDate: formattedEndDate,
+      };
+      await setDoc(ref, dataToSave, { merge: true });
+      console.log("Experience section data saved successfully!");
+      setLoading(false);
+    } catch (error) {
+      console.error("Error saving experience form data", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -25,6 +64,7 @@ const ExperienceForm = () => {
         className="rm-form grid gap-x-3 gap-y-0 grid-cols-2"
         layout="vertical"
         name="experience-form"
+        onFinish={handleExperienceSave}
       >
         <Form.Item
           label="Position Title"
@@ -99,7 +139,7 @@ const ExperienceForm = () => {
           </div>
           <div className="col-span-1">
             <Button className="px-6" type="primary">
-              Save
+              {loading ? <CgSpinner style={{ color: "white" }} /> : <p>Save</p>}
             </Button>
           </div>
         </div>
