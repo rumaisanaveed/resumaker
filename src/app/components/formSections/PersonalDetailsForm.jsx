@@ -1,13 +1,36 @@
 "use client";
 import { Form, Input } from "antd";
-import React from "react";
+import React, { useContext, useState } from "react";
 import { ActiveFormHeader } from "../ActiveFormHeader";
 import Button from "../buttons/Button";
 import globalStyles from "@/app/styles/cssInJsStyles/globalStyles";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "@/app/firebaseConfig";
+import Context from "@/app/context/Context";
+import { useUser } from "@clerk/nextjs";
+import { CgSpinner } from "react-icons/cg";
 
 const PersonalDetailsForm = () => {
-  const handleSave = (values) => {
-    console.log(values);
+  const { user } = useUser();
+  const { resumeId, resumeTitle } = useContext(Context);
+  const [loading, setLoading] = useState(false);
+
+  const handleSave = async (values) => {
+    console.log("Form values:", values);
+    setLoading(true);
+    try {
+      const resumeRef = doc(db, "users", user.id, "resumes", resumeId); // users/{userId}/resumes/{resumeId}
+      const dataToSave = {
+        ...values,
+        title: resumeTitle,
+      };
+      await setDoc(resumeRef, dataToSave, { merge: true });
+      console.log("Resume data saved successfully!");
+    } catch (error) {
+      console.error("Error saving resume data:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const inputYPadding = "py-2";
@@ -89,8 +112,11 @@ const PersonalDetailsForm = () => {
           />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" className="py-1.5 px-5">
-            Save
+          <Button
+            type="primary"
+            className="py-1.5 px-5 flex items-center justify-center"
+          >
+            {loading ? <CgSpinner style={{ color: "white" }} /> : <p>Save</p>}
           </Button>
         </Form.Item>
       </Form>

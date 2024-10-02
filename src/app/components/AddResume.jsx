@@ -1,8 +1,10 @@
 "use client";
 import { Input, Modal } from "antd";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { CiSquarePlus } from "react-icons/ci";
+import { v4 as uuidv4 } from "uuid";
+import Context from "../context/Context";
 
 export default function AddResume() {
   // generate resume id and save in context
@@ -10,6 +12,7 @@ export default function AddResume() {
   // path /users/userId/resume
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const { setResumeId } = useContext(Context);
 
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -20,6 +23,8 @@ export default function AddResume() {
   };
 
   const handleCreateResume = () => {
+    const newResumeId = uuidv4();
+    setResumeId(newResumeId);
     router.push("/create-resume");
   };
 
