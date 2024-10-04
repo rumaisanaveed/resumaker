@@ -27,3 +27,5 @@ disable the previous button and auto move the resume step and also show
 a toast message when the data gets saved successfully 
 add validations for optional fields so that the data undefined won't save in the db 
 avoid switch case for form steps rendering
+
+save resume pic and color at the end 

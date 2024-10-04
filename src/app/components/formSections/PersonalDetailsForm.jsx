@@ -10,12 +10,14 @@ import Context from "@/app/context/Context";
 import { useUser } from "@clerk/nextjs";
 import { CgSpinner } from "react-icons/cg";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
+import { toast } from "sonner";
 
 const PersonalDetailsForm = () => {
   const { user } = useUser();
   const { resumeTitle } = useContext(Context);
   const [loading, setLoading] = useState(false);
   const [resumeId, setResumeId] = useLocalStorage("resumeId");
+  const { setIsFormSubmitted } = useContext(Context);
 
   const handleSave = async (values) => {
     console.log("Form values:", values);
@@ -26,15 +28,22 @@ const PersonalDetailsForm = () => {
         setLoading(false);
         return;
       }
-      const resumeRef = doc(db, "users", user.id, "resumes", resumeId); // users/{userId}/resumes/{resumeId}
+      const resumeRef = doc(db, "users", user.id, "resumes", resumeId);
       const dataToSave = {
-        ...values,
-        title: resumeTitle,
+        personalDetails: {
+          ...values,
+          portfolio: values.portfolio ? values.portfolio : "",
+        },
       };
       await setDoc(resumeRef, dataToSave, { merge: true });
       console.log("Resume data saved successfully!");
+      setLoading(false);
+      setIsFormSubmitted(true);
+      toast.success("Data saved successfully!");
     } catch (error) {
       console.error("Error saving resume data:", error);
+      toast.error("An error occured. Try again!");
+      setLoading(false);
     } finally {
       setLoading(false);
     }
@@ -105,7 +114,7 @@ const PersonalDetailsForm = () => {
 
         <Form.Item
           label="Portfolio Website"
-          name="portfolio"
+          name="portfolioWebsite"
           rules={[
             {
               type: "url", // Adding validation for URL format

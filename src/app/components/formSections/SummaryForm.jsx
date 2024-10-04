@@ -1,5 +1,5 @@
 import globalStyles from "@/app/styles/cssInJsStyles/globalStyles";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { ActiveFormHeader } from "../ActiveFormHeader";
 import Button from "../buttons/Button";
 import { RichTextEditor } from "../RichTextEditor";
@@ -8,12 +8,15 @@ import { useUser } from "@clerk/nextjs";
 import { CgSpinner } from "react-icons/cg";
 import { db } from "@/app/firebaseConfig";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
+import { toast } from "sonner";
+import Context from "@/app/context/Context";
 
 const SummaryForm = () => {
   const [value, setValue] = useState("");
   const [loading, setLoading] = useState(false);
   const { user } = useUser();
   const [resumeId, setResumeId] = useLocalStorage("resumeId");
+  const { setIsFormSubmitted } = useContext(Context);
 
   const onChange = (content) => {
     setValue(content);
@@ -32,10 +35,13 @@ const SummaryForm = () => {
       const dataToSave = { summary: value };
       await setDoc(ref, dataToSave, { merge: true });
       console.log("Summary saved successfully!");
+      setIsFormSubmitted(true);
       setLoading(false);
+      toast.success("Data  saved successfully");
     } catch (error) {
       console.error(error);
       setLoading(false);
+      toast.error("An error occured. Try again!");
     } finally {
       setLoading(false);
     }

@@ -1,5 +1,5 @@
 import globalStyles from "@/app/styles/cssInJsStyles/globalStyles";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { ActiveFormHeader } from "../ActiveFormHeader";
 import { Form, Select } from "antd";
 import Button from "../buttons/Button";
@@ -8,11 +8,14 @@ import { useUser } from "@clerk/nextjs";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "@/app/firebaseConfig";
 import { CgSpinner } from "react-icons/cg";
+import { toast } from "sonner";
+import Context from "@/app/context/Context";
 
 const SkillsForm = () => {
   const { user } = useUser();
   const [loading, setLoading] = useState(false);
   const [resumeId, setResumeId] = useLocalStorage("resumeId");
+  const { setIsFormSubmitted } = useContext(Context);
 
   const handleSkillsSave = async (values) => {
     setLoading(true);
@@ -20,17 +23,21 @@ const SkillsForm = () => {
       if (!resumeId || !user.id) {
         console.error("resumeId or userId is missing");
         setLoading(false);
-
         return;
       }
       const resumeRef = doc(db, "users", user.id, "resumes", resumeId); // users/{userId}/resumes/{resumeId}
       const dataToSave = {
-        ...values,
+        skills: { ...values },
       };
       await setDoc(resumeRef, dataToSave, { merge: true });
       console.log("Skills data saved successfully!");
+      setIsFormSubmitted(true);
+      setLoading(false);
+      toast.success("Data saved successfully!");
     } catch (error) {
       console.error("Error saving skills data:", error);
+      setLoading(false);
+      toast.error("An error occured. Try again!");
     } finally {
       setLoading(false);
     }

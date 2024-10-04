@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import globalStyles from "@/app/styles/cssInJsStyles/globalStyles";
 import { ActiveFormHeader } from "../ActiveFormHeader";
 import { Form, Input, DatePicker } from "antd";
@@ -8,13 +8,17 @@ import useLocalStorage from "@/app/hooks/useLocalStorage";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "@/app/firebaseConfig";
 import { useUser } from "@clerk/nextjs";
+import Context from "@/app/context/Context";
+import { formatDate } from "@/app/utils/formatDate";
+import { toast } from "sonner";
 
 const EducationForm = () => {
   const { user } = useUser();
   const [loading, setLoading] = useState(false);
   const [resumeId, setResumeId] = useLocalStorage("resumeId");
+  const { setIsFormSubmitted, themeColor } = useContext(Context);
 
-  const handleEducationSave = async () => {
+  const handleEducationSave = async (values) => {
     setLoading(true);
     try {
       if (!resumeId || !user.id) {
@@ -23,22 +27,26 @@ const EducationForm = () => {
         return;
       }
       const { universityStartDate, universityEndDate, ...otherValues } = values;
-      const formattedStartDate = universityStartDate
-        ? universityStartDate.format("YYYY-MM-DD")
-        : null;
-      const formattedEndDate = universityEndDate
-        ? universityEndDate.format("YYYY-MM-DD")
-        : null;
-      const resumeRef = doc(db, "users", user.id, "resumes", resumeId); // users/{userId}/resumes/{resumeId}
+      const formattedStartDate = formatDate(universityStartDate);
+      const formattedEndDate = formatDate(universityEndDate);
+      const resumeRef = doc(db, "users", user.id, "resumes", resumeId);
       const dataToSave = {
-        ...otherValues,
-        universityStartDate: formattedStartDate,
-        universityEndDate: formattedEndDate,
+        education: {
+          ...otherValues,
+          universityStartDate: formattedStartDate,
+          universityEndDate: formattedEndDate,
+        },
+        color: themeColor,
       };
       await setDoc(resumeRef, dataToSave, { merge: true });
       console.log("Education data saved successfully!");
+      setIsFormSubmitted(true);
+      setLoading(false);
+      toast.success("Data saved successfully!");
     } catch (error) {
       console.error("Error saving education data:", error);
+      setLoading(false);
+      toast.error("An error occured. Try again!");
     } finally {
       setLoading(false);
     }

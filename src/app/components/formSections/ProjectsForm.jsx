@@ -1,6 +1,6 @@
 "use client";
 import globalStyles from "@/app/styles/cssInJsStyles/globalStyles";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { ActiveFormHeader } from "../ActiveFormHeader";
 import { Form, Input, DatePicker, Select } from "antd";
 import Button from "../buttons/Button";
@@ -12,12 +12,16 @@ import useLocalStorage from "@/app/hooks/useLocalStorage";
 import { useUser } from "@clerk/nextjs";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "@/app/firebaseConfig";
+import Context from "@/app/context/Context";
+import { formatDate } from "@/app/utils/formatDate";
+import { toast } from "sonner";
 
 const ProjectsForm = () => {
   const { user } = useUser();
   const [loading, setLoading] = useState(false);
   const [description, setDescription] = useState("");
   const [resumeId, setResumeId] = useLocalStorage("resumeId");
+  const { setIsFormSubmitted } = useContext(Context);
 
   const onChange = (content) => {
     setDescription(content);
@@ -33,23 +37,26 @@ const ProjectsForm = () => {
         return;
       }
       const { projectStartDate, projectEndDate, ...otherValues } = values;
-      const formattedStartDate = projectStartDate
-        ? projectStartDate.format("YYYY-MM-DD")
-        : null;
-      const formattedEndDate = projectStartDate
-        ? projectEndDate.format("YYYY-MM-DD")
-        : null;
-      const resumeRef = doc(db, "users", user.id, "resumes", resumeId); // users/{userId}/resumes/{resumeId}
+      const formattedStartDate = formatDate(projectStartDate);
+      const formattedEndDate = formatDate(projectEndDate);
+      const resumeRef = doc(db, "users", user.id, "resumes", resumeId);
       const dataToSave = {
-        ...otherValues,
-        projectDescription: description,
-        projectStartDate: formattedStartDate,
-        projectEndDate: formattedEndDate,
+        projectDetails: {
+          ...otherValues,
+          projectDescription: description,
+          projectStartDate: formattedStartDate,
+          projectEndDate: formattedEndDate,
+        },
       };
       await setDoc(resumeRef, dataToSave, { merge: true });
       console.log("Projects data saved successfully!");
+      setIsFormSubmitted(true);
+      setLoading(false);
+      toast.success("Data saved successfully!");
     } catch (error) {
       console.error("Error saving projects data:", error);
+      setLoading(false);
+      toast.error("An error occured. Try again!");
     } finally {
       setLoading(false);
     }
@@ -83,7 +90,7 @@ const ProjectsForm = () => {
       >
         <Form.Item
           label="Name"
-          name="projectName"
+          name="name"
           className="col-span-2 lg:col-span-1"
           rules={[{ required: true, message: "Please input position title!" }]}
         >
@@ -109,7 +116,10 @@ const ProjectsForm = () => {
           label="Live Link"
           className="col-span-2 lg:col-span-1"
           name="liveLink"
-          rules={[{ required: true, message: "Please input start date!" }]}
+          rules={[
+            { required: true, message: "Please input start date!" },
+            { type: "url", message: "Please enter a valid url!" },
+          ]}
         >
           <Input
             className="w-full py-2"
@@ -120,7 +130,10 @@ const ProjectsForm = () => {
           label="GitHub Link"
           className="col-span-2 lg:col-span-1"
           name="githubLink"
-          rules={[{ required: true, message: "Please input start date!" }]}
+          rules={[
+            { required: true, message: "Please input github link!" },
+            { type: "url", message: "Please enter valid url!" },
+          ]}
         >
           <Input
             className="w-full py-2"
@@ -157,31 +170,6 @@ const ProjectsForm = () => {
           <RichTextEditor value={description} onChange={onChange} />
         </Form.Item>
         <div className={globalStyles.footerBtnsContainer}>
-          <div className={globalStyles.footerBtnsColOne}>
-            <Button className={globalStyles.footerBtnsStyles}>
-              <IoAddOutline style={globalStyles.footerBtnIconStyles} />
-              <p
-                className="text-custom-purple"
-                style={globalStyles.footerBtnTextStyles}
-              >
-                Add More Experience
-              </p>
-            </Button>
-            <Button className={globalStyles.footerBtnsStyles}>
-              <FiMinus
-                style={{
-                  color: "#A133FF",
-                  fontWeight: "500",
-                }}
-              />
-              <p
-                className="text-custom-purple"
-                style={globalStyles.footerBtnTextStyles}
-              >
-                Remove
-              </p>
-            </Button>
-          </div>
           <div className="col-span-1">
             <Button className="px-6" type="primary">
               {loading ? <CgSpinner style={{ color: "white" }} /> : <p>Save</p>}

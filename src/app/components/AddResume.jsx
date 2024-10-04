@@ -6,12 +6,13 @@ import { CiSquarePlus } from "react-icons/ci";
 import { v4 as uuidv4 } from "uuid";
 import Context from "../context/Context";
 import { useUser } from "@clerk/nextjs";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../firebaseConfig";
+import { toast } from "sonner";
 
 export default function AddResume() {
-  // generate resume id and save in context
-  // take that id and go the personal details form and save the data got from that form and save it on the
-  // path /users/userId/resume
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { setResumeId, setResumeTitle, resumeTitle } = useContext(Context);
   const { user } = useUser();
@@ -24,11 +25,23 @@ export default function AddResume() {
     setIsModalOpen(true);
   };
 
-  const handleCreateResume = () => {
+  const handleCreateResume = async () => {
     const newResumeId = uuidv4();
     localStorage.setItem("resumeId", newResumeId);
     setResumeId(newResumeId);
-    router.push("/create-resume");
+    try {
+      const resumeRef = doc(db, "users", user.id, "resumes", resumeId);
+      await setDoc(resumeRef, { resumeTitle });
+      console.log("Resume title saved successfully");
+      setLoading(false);
+      router.push("/create-resume");
+    } catch (error) {
+      console.error(error);
+      toast.error("An error occured. Try again!");
+      setLoading(false);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

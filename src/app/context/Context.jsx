@@ -8,6 +8,8 @@ export const ContextProvider = ({ children }) => {
   const [themeColor, setThemeColor] = useState("#aa16ff");
   const [resumeId, setResumeId] = useState("");
   const [resumeTitle, setResumeTitle] = useState("");
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+
   return (
     <Context.Provider
       value={{
@@ -19,6 +21,8 @@ export const ContextProvider = ({ children }) => {
         setResumeId,
         resumeTitle,
         setResumeTitle,
+        isFormSubmitted,
+        setIsFormSubmitted,
       }}
     >
       {children}

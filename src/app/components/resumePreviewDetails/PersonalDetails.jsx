@@ -1,13 +1,12 @@
 import dummy from "@/app/data/dummy";
 import React from "react";
+import { SectionHeading } from "./SectionHeading";
 
 export const PersonalDetails = () => {
   return (
     <>
       <div className="text-center">
-        <h1 className="text-custom-purple font-semibold text-xl">
-          {dummy.personalDetails.name}
-        </h1>
+        <SectionHeading heading={dummy.personalDetails.name} />
         <h2 className="text-black font-semibold text-lg">
           {dummy.personalDetails.title}
         </h2>

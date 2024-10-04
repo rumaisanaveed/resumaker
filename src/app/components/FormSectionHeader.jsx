@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import Button from "./buttons/Button";
 import { BsHouseDoor } from "react-icons/bs";
 import { CiGrid41 } from "react-icons/ci";
@@ -9,8 +9,13 @@ import { FaArrowLeft } from "react-icons/fa";
 import { ColorPicker } from "antd";
 
 export const FormSectionHeader = React.memo(() => {
-  const [color, setColor] = useState("#aa16ff"); // Default color
-  const { activeFormStep, setActiveFormStep } = useContext(Context);
+  const {
+    activeFormStep,
+    setActiveFormStep,
+    isFormSubmitted,
+    themeColor,
+    setThemeColor,
+  } = useContext(Context);
 
   const handleFormNextStep = () => {
     if (activeFormStep < 7) {
@@ -30,7 +35,7 @@ export const FormSectionHeader = React.memo(() => {
     const hex = `#${((1 << 24) + (r << 16) + (g << 8) + b)
       .toString(16)
       .slice(1)}`; // Converting RGB to hex
-    setColor(hex);
+    setThemeColor(hex);
     console.log("Selected Color (Hex):", hex);
   };
 
@@ -50,8 +55,8 @@ export const FormSectionHeader = React.memo(() => {
           <div className="pl-2">
             <ColorPicker
               format="hex"
-              defaultValue={color}
-              value={color} // Controlled component
+              defaultValue={themeColor}
+              value={themeColor} // Controlled component
               onChange={handleColorChange} // Handle color change
             />
           </div>
@@ -60,7 +65,11 @@ export const FormSectionHeader = React.memo(() => {
 
       <div className="flex items-center gap-2">
         {activeFormStep > 1 && (
-          <Button className="py-3 px-4" onClick={handleFormPrevStep}>
+          <Button
+            className="py-3 px-4"
+            onClick={handleFormPrevStep}
+            disabled={isFormSubmitted}
+          >
             <FaArrowLeft style={{ fontSize: "23px" }} />
           </Button>
         )}

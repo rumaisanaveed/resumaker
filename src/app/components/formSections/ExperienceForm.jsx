@@ -12,12 +12,16 @@ import { db } from "@/app/firebaseConfig";
 import { useUser } from "@clerk/nextjs";
 import { CgSpinner } from "react-icons/cg";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
+import { toast } from "sonner";
+import Context from "@/app/context/Context";
+import { formatDate } from "@/app/utils/formatDate";
 
 const ExperienceForm = () => {
   const [summary, setSummary] = useState("");
   const [loading, setLoading] = useState(false);
   const { user } = useUser();
   const [resumeId, setResumeId] = useLocalStorage("resumeId");
+  const { setIsFormSubmitted } = useContext(Context);
 
   const onChange = (content) => {
     setSummary(content);
@@ -33,22 +37,25 @@ const ExperienceForm = () => {
         return;
       }
       const { startDate, endDate, ...otherValues } = values;
-      const formattedStartDate = startDate
-        ? startDate.format("YYYY-MM-DD")
-        : null;
-      const formattedEndDate = endDate ? endDate.format("YYYY-MM-DD") : null;
+      const formattedStartDate = formatDate(startDate);
+      const formattedEndDate = formatDate(endDate);
       const ref = doc(db, "users", user.id, "resumes", resumeId);
       const dataToSave = {
-        ...otherValues,
-        experienceSummary: summary,
-        startDate: formattedStartDate,
-        endDate: formattedEndDate,
+        experienceDetails: {
+          ...otherValues,
+          experienceSummary: summary,
+          startDate: formattedStartDate,
+          endDate: formattedEndDate,
+        },
       };
       await setDoc(ref, dataToSave, { merge: true });
       console.log("Experience section data saved successfully!");
+      setIsFormSubmitted(true);
       setLoading(false);
+      toast.success("Data saved succesfully");
     } catch (error) {
       console.error("Error saving experience form data", error);
+      toast.error("An error occured. Try again!");
     } finally {
       setLoading(false);
     }
@@ -112,31 +119,6 @@ const ExperienceForm = () => {
           <RichTextEditor value={summary} onChange={onChange} />
         </Form.Item>
         <div className={globalStyles.footerBtnsContainer}>
-          <div className={globalStyles.footerBtnsColOne}>
-            <Button className={globalStyles.footerBtnsStyles}>
-              <IoAddOutline style={globalStyles.footerBtnIconStyles} />
-              <p
-                className="text-custom-purple"
-                style={globalStyles.footerBtnTextStyles}
-              >
-                Add More Experience
-              </p>
-            </Button>
-            <Button className={globalStyles.footerBtnsStyles}>
-              <FiMinus
-                style={{
-                  color: "#A133FF",
-                  fontWeight: "500",
-                }}
-              />
-              <p
-                className="text-custom-purple"
-                style={globalStyles.footerBtnTextStyles}
-              >
-                Remove
-              </p>
-            </Button>
-          </div>
           <div className="col-span-1">
             <Button className="px-6" type="primary">
               {loading ? <CgSpinner style={{ color: "white" }} /> : <p>Save</p>}

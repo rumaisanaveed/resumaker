@@ -1,3 +1,4 @@
+import { Toaster } from "sonner";
 import Faqs from "./components/home/Faqs";
 import Guide from "./components/home/Guide";
 import Hero from "./components/home/Hero";
@@ -13,6 +14,7 @@ export default function Home() {
   return (
     <MainLayout>
       <main className="bg-white w-full">
+        <Toaster position="top-center" />
         <Hero />
         <Guide />
         <Faqs />
