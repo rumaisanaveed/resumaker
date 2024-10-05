@@ -4,49 +4,31 @@ import React, { useContext, useState } from "react";
 import { ActiveFormHeader } from "../ActiveFormHeader";
 import Button from "../buttons/Button";
 import globalStyles from "@/app/styles/cssInJsStyles/globalStyles";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "@/app/firebaseConfig";
 import Context from "@/app/context/Context";
 import { useUser } from "@clerk/nextjs";
 import { CgSpinner } from "react-icons/cg";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
-import { toast } from "sonner";
+import { withLoading, handleSave } from "@/app/utils/apiHandler";
 
 const PersonalDetailsForm = () => {
   const { user } = useUser();
-  const { resumeTitle } = useContext(Context);
   const [loading, setLoading] = useState(false);
   const [resumeId, setResumeId] = useLocalStorage("resumeId");
   const { setIsFormSubmitted } = useContext(Context);
 
-  const handleSave = async (values) => {
-    console.log("Form values:", values);
-    setLoading(true);
-    try {
-      if (!resumeId || !user.id) {
-        console.error("resumeId or userId is missing");
-        setLoading(false);
-        return;
-      }
-      const resumeRef = doc(db, "users", user.id, "resumes", resumeId);
-      const dataToSave = {
-        personalDetails: {
-          ...values,
-          portfolio: values.portfolio ? values.portfolio : "",
-        },
-      };
-      await setDoc(resumeRef, dataToSave, { merge: true });
-      console.log("Resume data saved successfully!");
-      setLoading(false);
-      setIsFormSubmitted(true);
-      toast.success("Data saved successfully!");
-    } catch (error) {
-      console.error("Error saving resume data:", error);
-      toast.error("An error occured. Try again!");
-      setLoading(false);
-    } finally {
-      setLoading(false);
-    }
+  const handlePersonalDetailsSave = (values) => {
+    withLoading(
+      () =>
+        handleSave(
+          values,
+          "personalDetails",
+          {},
+          resumeId,
+          user.id,
+          setIsFormSubmitted
+        ),
+      setLoading
+    );
   };
 
   const inputYPadding = "py-2";
@@ -60,7 +42,7 @@ const PersonalDetailsForm = () => {
         layout="vertical"
         rootClassName="rm-form"
         autoComplete="off"
-        onFinish={handleSave}
+        onFinish={handlePersonalDetailsSave}
       >
         <Form.Item
           label="Name"

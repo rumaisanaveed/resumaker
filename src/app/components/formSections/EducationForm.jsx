@@ -5,52 +5,34 @@ import { Form, Input, DatePicker } from "antd";
 import Button from "../buttons/Button";
 import { CgSpinner } from "react-icons/cg";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "@/app/firebaseConfig";
 import { useUser } from "@clerk/nextjs";
 import Context from "@/app/context/Context";
-import { formatDate } from "@/app/utils/formatDate";
-import { toast } from "sonner";
+import { handleSave, withLoading } from "@/app/utils/apiHandler";
 
 const EducationForm = () => {
   const { user } = useUser();
   const [loading, setLoading] = useState(false);
   const [resumeId, setResumeId] = useLocalStorage("resumeId");
-  const { setIsFormSubmitted, themeColor } = useContext(Context);
+  const { setIsFormSubmitted } = useContext(Context);
 
-  const handleEducationSave = async (values) => {
-    setLoading(true);
-    try {
-      if (!resumeId || !user.id) {
-        console.error("resumeId or userId is missing");
-        setLoading(false);
-        return;
-      }
-      const { universityStartDate, universityEndDate, ...otherValues } = values;
-      const formattedStartDate = formatDate(universityStartDate);
-      const formattedEndDate = formatDate(universityEndDate);
-      const resumeRef = doc(db, "users", user.id, "resumes", resumeId);
-      const dataToSave = {
-        education: {
-          ...otherValues,
-          universityStartDate: formattedStartDate,
-          universityEndDate: formattedEndDate,
-        },
-        color: themeColor,
-      };
-      await setDoc(resumeRef, dataToSave, { merge: true });
-      console.log("Education data saved successfully!");
-      setIsFormSubmitted(true);
-      setLoading(false);
-      toast.success("Data saved successfully!");
-    } catch (error) {
-      console.error("Error saving education data:", error);
-      setLoading(false);
-      toast.error("An error occured. Try again!");
-    } finally {
-      setLoading(false);
-    }
+  const handleEducationSave = (values) => {
+    withLoading(
+      () =>
+        handleSave(
+          values,
+          "education",
+          {
+            universityStartDate: values.universityStartDate,
+            universityEndDate: values.universityEndDate,
+          },
+          resumeId,
+          user.id,
+          setIsFormSubmitted
+        ),
+      setLoading
+    );
   };
+
   return (
     <div className={globalStyles.formComponentContainer}>
       <ActiveFormHeader

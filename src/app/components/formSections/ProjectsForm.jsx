@@ -4,17 +4,12 @@ import React, { useState, useContext } from "react";
 import { ActiveFormHeader } from "../ActiveFormHeader";
 import { Form, Input, DatePicker, Select } from "antd";
 import Button from "../buttons/Button";
-import { IoAddOutline } from "react-icons/io5";
-import { FiMinus } from "react-icons/fi";
 import { RichTextEditor } from "../RichTextEditor";
 import { CgSpinner } from "react-icons/cg";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
 import { useUser } from "@clerk/nextjs";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "@/app/firebaseConfig";
 import Context from "@/app/context/Context";
-import { formatDate } from "@/app/utils/formatDate";
-import { toast } from "sonner";
+import { handleSave, withLoading } from "@/app/utils/apiHandler";
 
 const ProjectsForm = () => {
   const { user } = useUser();
@@ -27,39 +22,22 @@ const ProjectsForm = () => {
     setDescription(content);
   };
 
-  const handleProjectsSave = async (values) => {
-    console.log("Form values:", values);
-    setLoading(true);
-    try {
-      if (!resumeId || !user.id) {
-        console.error("resumeId or userId is missing");
-        setLoading(false);
-        return;
-      }
-      const { projectStartDate, projectEndDate, ...otherValues } = values;
-      const formattedStartDate = formatDate(projectStartDate);
-      const formattedEndDate = formatDate(projectEndDate);
-      const resumeRef = doc(db, "users", user.id, "resumes", resumeId);
-      const dataToSave = {
-        projectDetails: {
-          ...otherValues,
-          projectDescription: description,
-          projectStartDate: formattedStartDate,
-          projectEndDate: formattedEndDate,
-        },
-      };
-      await setDoc(resumeRef, dataToSave, { merge: true });
-      console.log("Projects data saved successfully!");
-      setIsFormSubmitted(true);
-      setLoading(false);
-      toast.success("Data saved successfully!");
-    } catch (error) {
-      console.error("Error saving projects data:", error);
-      setLoading(false);
-      toast.error("An error occured. Try again!");
-    } finally {
-      setLoading(false);
-    }
+  const handleProjectsSave = (values) => {
+    withLoading(
+      () =>
+        handleSave(
+          values,
+          "projectDetails",
+          {
+            projectStartDate: values.projectStartDate,
+            projectEndDate: values.projectEndDate,
+          },
+          resumeId,
+          user.id,
+          setIsFormSubmitted
+        ),
+      setLoading
+    );
   };
 
   const techOptions = [

@@ -3,6 +3,7 @@ import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Providers } from "./providers";
 import { ConfigProvider } from "antd";
+import { Toaster } from "sonner";
 
 const poppins = Poppins({
   weight: "400",
@@ -27,7 +28,10 @@ export default function RootLayout({ children }) {
           }}
         >
           <html lang="en">
-            <body className={poppins.className}>{children}</body>
+            <body className={poppins.className}>
+              {children}
+              <Toaster position="top-center" richColors />
+            </body>
           </html>
         </ConfigProvider>
       </ClerkProvider>

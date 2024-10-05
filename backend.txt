@@ -29,3 +29,132 @@ add validations for optional fields so that the data undefined won't save in the
 avoid switch case for form steps rendering
 
 save resume pic and color at the end 
+
+// Helper function to manage loading state
+const withLoading = async (callback) => {
+  setLoading(true);
+  try {
+    await callback();
+  } catch (error) {
+    console.error(error);
+    toast.error("An error occurred. Try again!");
+  } finally {
+    setLoading(false);
+  }
+};
+
+// Helper function to save data to Firestore
+const saveToFirestore = async (collectionPath, data) => {
+  const ref = doc(db, ...collectionPath);
+  await setDoc(ref, data, { merge: true });
+  toast.success("Data saved successfully!");
+  setIsFormSubmitted(true);
+};
+
+// General function to handle form submission
+const handleSave = async (values, type, formatDateFields = {}) => {
+  if (!resumeId || !user.id) {
+    console.error("resumeId or userId is missing");
+    return;
+  }
+
+  const formattedData = Object.entries(formatDateFields).reduce((acc, [field, value]) => {
+    acc[field] = formatDate(value);
+    return acc;
+  }, {});
+
+  const dataToSave = {
+    [type]: {
+      ...values,
+      ...formattedData,
+    },
+  };
+
+  await saveToFirestore(["users", user.id, "resumes", resumeId], dataToSave);
+};
+
+// Usage Examples
+
+// Save resume title
+const handleCreateResume = async () => {
+  const newResumeId = uuidv4();
+  localStorage.setItem("resumeId", newResumeId);
+  setResumeId(newResumeId);
+  withLoading(async () => {
+    await saveToFirestore(["users", user.id, "resumes", newResumeId], { resumeTitle });
+    router.push("/create-resume");
+  });
+};
+
+// Save personal details
+const handlePersonalDetailsSave = (values) => {
+  withLoading(() => handleSave(values, "personalDetails"));
+};
+
+// Save experience
+const handleExperienceSave = (values) => {
+  withLoading(() =>
+    handleSave(values, "experienceDetails", {
+      startDate: values.startDate,
+      endDate: values.endDate,
+    })
+  );
+};
+
+// Save summary
+const handleSummarySave = () => {
+  withLoading(() => handleSave({ summary: value }, "summary"));
+};
+
+// Save projects
+const handleProjectsSave = (values) => {
+  withLoading(() =>
+    handleSave(values, "projectDetails", {
+      projectStartDate: values.projectStartDate,
+      projectEndDate: values.projectEndDate,
+    })
+  );
+};
+
+// Save skills
+const handleSkillsSave = (values) => {
+  withLoading(() => handleSave(values, "skills"));
+};
+
+// Save education
+const handleEducationSave = (values) => {
+  withLoading(() =>
+    handleSave(values, "education", {
+      universityStartDate: values.universityStartDate,
+      universityEndDate: values.universityEndDate,
+    })
+  );
+};
+
+ // console.log("Form values:", values);
+    // setLoading(true);
+    // try {
+    //   if (!resumeId || !user.id) {
+    //     console.error("resumeId or userId is missing");
+    //     setLoading(false);
+    //     return;
+    //   }
+    //   const resumeRef = doc(db, "users", user.id, "resumes", resumeId);
+    //   const dataToSave = {
+    //     personalDetails: {
+    //       ...values,
+    //       portfolio: values.portfolio ? values.portfolio : "",
+    //     },
+    //   };
+    //   await setDoc(resumeRef, dataToSave, { merge: true });
+    //   console.log("Resume data saved successfully!");
+    //   setLoading(false);
+    //   setIsFormSubmitted(true);
+    //   toast.success("Data saved successfully!");
+    // } catch (error) {
+    //   console.error("Error saving resume data:", error);
+    //   toast.error("An error occured. Try again!");
+    //   setLoading(false);
+    // } finally {
+    //   setLoading(false);
+    // }

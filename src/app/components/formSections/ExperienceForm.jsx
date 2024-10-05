@@ -4,17 +4,12 @@ import React, { useContext, useState } from "react";
 import { ActiveFormHeader } from "../ActiveFormHeader";
 import { Form, Input, DatePicker } from "antd";
 import Button from "../buttons/Button";
-import { IoAddOutline } from "react-icons/io5";
-import { FiMinus } from "react-icons/fi";
 import { RichTextEditor } from "../RichTextEditor";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "@/app/firebaseConfig";
 import { useUser } from "@clerk/nextjs";
 import { CgSpinner } from "react-icons/cg";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
-import { toast } from "sonner";
 import Context from "@/app/context/Context";
-import { formatDate } from "@/app/utils/formatDate";
+import { handleSave, withLoading } from "@/app/utils/apiHandler";
 
 const ExperienceForm = () => {
   const [summary, setSummary] = useState("");
@@ -27,38 +22,22 @@ const ExperienceForm = () => {
     setSummary(content);
   };
 
-  const handleExperienceSave = async (values) => {
-    console.log(values);
-    setLoading(true);
-    try {
-      if (!resumeId || !user.id) {
-        console.error("resumeId or userId is missing");
-        setLoading(false);
-        return;
-      }
-      const { startDate, endDate, ...otherValues } = values;
-      const formattedStartDate = formatDate(startDate);
-      const formattedEndDate = formatDate(endDate);
-      const ref = doc(db, "users", user.id, "resumes", resumeId);
-      const dataToSave = {
-        experienceDetails: {
-          ...otherValues,
-          experienceSummary: summary,
-          startDate: formattedStartDate,
-          endDate: formattedEndDate,
-        },
-      };
-      await setDoc(ref, dataToSave, { merge: true });
-      console.log("Experience section data saved successfully!");
-      setIsFormSubmitted(true);
-      setLoading(false);
-      toast.success("Data saved succesfully");
-    } catch (error) {
-      console.error("Error saving experience form data", error);
-      toast.error("An error occured. Try again!");
-    } finally {
-      setLoading(false);
-    }
+  const handleExperienceSave = (values) => {
+    withLoading(
+      () =>
+        handleSave(
+          values,
+          "experienceDetails",
+          {
+            startDate: values.startDate,
+            endDate: values.endDate,
+          },
+          resumeId,
+          user.id,
+          setIsFormSubmitted
+        ),
+      setLoading
+    );
   };
 
   return (

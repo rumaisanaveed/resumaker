@@ -3,13 +3,11 @@ import React, { useState, useContext } from "react";
 import { ActiveFormHeader } from "../ActiveFormHeader";
 import Button from "../buttons/Button";
 import { RichTextEditor } from "../RichTextEditor";
-import { doc, setDoc } from "firebase/firestore";
 import { useUser } from "@clerk/nextjs";
 import { CgSpinner } from "react-icons/cg";
-import { db } from "@/app/firebaseConfig";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
-import { toast } from "sonner";
 import Context from "@/app/context/Context";
+import { handleSave, withLoading } from "@/app/utils/apiHandler";
 
 const SummaryForm = () => {
   const [value, setValue] = useState("");
@@ -23,28 +21,19 @@ const SummaryForm = () => {
     console.log(content);
   };
 
-  const handleSummarySave = async () => {
-    setLoading(true);
-    try {
-      if (!user.id || !resumeId) {
-        console.error("resumeId or userId is missing");
-        setLoading(false);
-        return;
-      }
-      const ref = doc(db, "users", user.id, "resumes", resumeId);
-      const dataToSave = { summary: value };
-      await setDoc(ref, dataToSave, { merge: true });
-      console.log("Summary saved successfully!");
-      setIsFormSubmitted(true);
-      setLoading(false);
-      toast.success("Data  saved successfully");
-    } catch (error) {
-      console.error(error);
-      setLoading(false);
-      toast.error("An error occured. Try again!");
-    } finally {
-      setLoading(false);
-    }
+  const handleSummarySave = () => {
+    withLoading(
+      () =>
+        handleSave(
+          { summary: value },
+          "summary",
+          {},
+          resumeId,
+          user.id,
+          setIsFormSubmitted
+        ),
+      setLoading
+    );
   };
 
   return (

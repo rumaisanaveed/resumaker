@@ -1,5 +1,5 @@
 "use client";
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext, useState } from "react";
 import Button from "./buttons/Button";
 import { BsHouseDoor } from "react-icons/bs";
 import { CiGrid41 } from "react-icons/ci";

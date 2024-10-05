@@ -6,15 +6,14 @@ import { CiSquarePlus } from "react-icons/ci";
 import { v4 as uuidv4 } from "uuid";
 import Context from "../context/Context";
 import { useUser } from "@clerk/nextjs";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "../firebaseConfig";
-import { toast } from "sonner";
+import { saveToFirestore, withLoading } from "../utils/apiHandler";
 
 export default function AddResume() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { setResumeId, setResumeTitle, resumeTitle } = useContext(Context);
+  const { setResumeId, setResumeTitle, resumeTitle, setIsFormSubmitted } =
+    useContext(Context);
   const { user } = useUser();
 
   const handleCancel = () => {
@@ -29,19 +28,16 @@ export default function AddResume() {
     const newResumeId = uuidv4();
     localStorage.setItem("resumeId", newResumeId);
     setResumeId(newResumeId);
-    try {
-      const resumeRef = doc(db, "users", user.id, "resumes", resumeId);
-      await setDoc(resumeRef, { resumeTitle });
-      console.log("Resume title saved successfully");
-      setLoading(false);
+    withLoading(async () => {
+      await saveToFirestore(
+        ["users", user.id, "resumes", newResumeId],
+        {
+          resumeTitle,
+        },
+        setIsFormSubmitted
+      );
       router.push("/create-resume");
-    } catch (error) {
-      console.error(error);
-      toast.error("An error occured. Try again!");
-      setLoading(false);
-    } finally {
-      setLoading(false);
-    }
+    }, setLoading);
   };
 
   return (
@@ -64,6 +60,7 @@ export default function AddResume() {
         rootClassName="rm-resume-title-modal"
         onOk={handleCreateResume}
         okText="Create"
+        okButtonProps={{ loading }}
       >
         <p>Add a title to your new resume</p>
         <Input
