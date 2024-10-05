@@ -9,6 +9,7 @@ export const ContextProvider = ({ children }) => {
   const [resumeId, setResumeId] = useState("");
   const [resumeTitle, setResumeTitle] = useState("");
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+  const [resumeData, setResumeData] = useState({});
 
   return (
     <Context.Provider
@@ -23,6 +24,8 @@ export const ContextProvider = ({ children }) => {
         setResumeTitle,
         isFormSubmitted,
         setIsFormSubmitted,
+        resumeData,
+        setResumeData,
       }}
     >
       {children}

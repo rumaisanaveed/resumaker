@@ -10,19 +10,30 @@ import { CgSpinner } from "react-icons/cg";
 import useLocalStorage from "@/app/hooks/useLocalStorage";
 import Context from "@/app/context/Context";
 import { handleSave, withLoading } from "@/app/utils/apiHandler";
+import { formatDate } from "@/app/utils/formatDate";
 
 const ExperienceForm = () => {
   const [summary, setSummary] = useState("");
   const [loading, setLoading] = useState(false);
   const { user } = useUser();
   const [resumeId, setResumeId] = useLocalStorage("resumeId");
-  const { setIsFormSubmitted } = useContext(Context);
+  const { setIsFormSubmitted, setResumeData } = useContext(Context);
 
   const onChange = (content) => {
     setSummary(content);
   };
 
   const handleExperienceSave = (values) => {
+    const formattedStartDate = formatDate(values.startDate);
+    const formattedEndDate = formatDate(values.endDate);
+    setResumeData((prev) => ({
+      ...prev,
+      experienceData: {
+        ...values,
+        startDate: formattedStartDate,
+        endDate: formattedEndDate,
+      },
+    }));
     withLoading(
       () =>
         handleSave(

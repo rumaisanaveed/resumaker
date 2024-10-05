@@ -13,9 +13,10 @@ const SkillsForm = () => {
   const { user } = useUser();
   const [loading, setLoading] = useState(false);
   const [resumeId, setResumeId] = useLocalStorage("resumeId");
-  const { setIsFormSubmitted } = useContext(Context);
+  const { setIsFormSubmitted, setResumeData } = useContext(Context);
 
   const handleSkillsSave = (values) => {
+    setResumeData((prev) => ({ ...prev, skills: { ...values } }));
     withLoading(
       () =>
         handleSave(values, "skills", {}, resumeId, user.id, setIsFormSubmitted),

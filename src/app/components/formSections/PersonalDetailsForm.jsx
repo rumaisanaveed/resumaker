@@ -14,9 +14,10 @@ const PersonalDetailsForm = () => {
   const { user } = useUser();
   const [loading, setLoading] = useState(false);
   const [resumeId, setResumeId] = useLocalStorage("resumeId");
-  const { setIsFormSubmitted } = useContext(Context);
+  const { setIsFormSubmitted, setResumeData } = useContext(Context);
 
   const handlePersonalDetailsSave = (values) => {
+    setResumeData({ personalDetails: { ...values } });
     withLoading(
       () =>
         handleSave(

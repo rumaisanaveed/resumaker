@@ -10,19 +10,30 @@ import useLocalStorage from "@/app/hooks/useLocalStorage";
 import { useUser } from "@clerk/nextjs";
 import Context from "@/app/context/Context";
 import { handleSave, withLoading } from "@/app/utils/apiHandler";
+import { formatDate } from "@/app/utils/formatDate";
 
 const ProjectsForm = () => {
   const { user } = useUser();
   const [loading, setLoading] = useState(false);
   const [description, setDescription] = useState("");
   const [resumeId, setResumeId] = useLocalStorage("resumeId");
-  const { setIsFormSubmitted } = useContext(Context);
+  const { setIsFormSubmitted, setResumeData } = useContext(Context);
 
   const onChange = (content) => {
     setDescription(content);
   };
 
   const handleProjectsSave = (values) => {
+    const formattedStartDate = formatDate(values.projectStartDate);
+    const formattedEndDate = formatDate(values.projectEndDate);
+    setResumeData((prev) => ({
+      ...prev,
+      projectDetails: {
+        ...values,
+        startDate: formattedStartDate,
+        endDate: formattedEndDate,
+      },
+    }));
     withLoading(
       () =>
         handleSave(

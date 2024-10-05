@@ -1,23 +1,33 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { SectionHeading } from "./SectionHeading";
 import { Separator } from "../UI/Separator";
 import dummy from "@/app/data/dummy";
+import Context from "@/app/context/Context";
+import { formatArray } from "@/app/utils/formatArray";
 
 export const Skills = () => {
+  const { resumeData } = useContext(Context);
+  const { skills } = resumeData;
+  const programmingSkills = formatArray(skills?.programming);
+  const tools = formatArray(skills?.toolsAndPlatforms);
+
   return (
     <>
-      <SectionHeading heading="Skills" />
-      <Separator />
-      <>
-        <p className="font-semibold">
-          Programming : &nbsp;
-          <span className="font-light">{dummy.skills.programming}</span>
-        </p>
-        <p className="font-semibold">
-          Tools : &nbsp;{" "}
-          <span className="font-light">{dummy.skills.tools}</span>
-        </p>
-      </>
+      {skills && (
+        <>
+          <SectionHeading heading="Skills" />
+          <Separator />
+          <>
+            <p className="font-semibold">
+              Programming : &nbsp;
+              <span className="font-light">{programmingSkills}</span>
+            </p>
+            <p className="font-semibold">
+              Tools : &nbsp; <span className="font-light">{tools}</span>
+            </p>
+          </>
+        </>
+      )}
     </>
   );
 };

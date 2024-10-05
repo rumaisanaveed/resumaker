@@ -14,7 +14,7 @@ const SummaryForm = () => {
   const [loading, setLoading] = useState(false);
   const { user } = useUser();
   const [resumeId, setResumeId] = useLocalStorage("resumeId");
-  const { setIsFormSubmitted } = useContext(Context);
+  const { setIsFormSubmitted, setResumeData } = useContext(Context);
 
   const onChange = (content) => {
     setValue(content);
@@ -22,6 +22,7 @@ const SummaryForm = () => {
   };
 
   const handleSummarySave = () => {
+    setResumeData((prev) => ({ ...prev, summary: value }));
     withLoading(
       () =>
         handleSave(
