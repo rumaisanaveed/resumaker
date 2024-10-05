@@ -17,20 +17,6 @@ export default function Page() {
   const { user } = useUser();
   const { setIsFormSubmitted } = useContext(Context);
 
-  // const handleGeneratePdf = () => {
-  //   const capture = document.querySelector(".resume");
-  //   setLoader(true);
-  //   html2canvas(capture).then((canvas) => {
-  //     const imageData = canvas.toDataURL("image/png");
-  //     const doc = new jsPDF("p", "mm", "a4");
-  //     const componentWidth = doc.internal.pageSize.getWidth();
-  //     const componentHeight = doc.internal.pageSize.getHeight();
-  //     doc.addImage(imageData, "PNG", 0, 0, componentWidth, componentHeight);
-  //     setLoader(false);
-  //     doc.save("resume.pdf");
-  //   });
-  // };
-
   const handleGeneratePdf = async () => {
     const capture = document.querySelector(".resume");
     setLoader(true);

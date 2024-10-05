@@ -9,6 +9,9 @@ export const metadata = {
     "Create professional resumes effortlessly with our easy-to-use, single-template resume generator.",
 };
 
+// live preview of the info
+// edit and delete
+
 export default function Home() {
   return (
     <MainLayout>
