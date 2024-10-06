@@ -1,5 +1,5 @@
 import globalStyles from "@/app/styles/cssInJsStyles/globalStyles";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { ActiveFormHeader } from "../ActiveFormHeader";
 import Button from "../buttons/Button";
 import { RichTextEditor } from "../RichTextEditor";
@@ -14,12 +14,16 @@ const SummaryForm = () => {
   const [loading, setLoading] = useState(false);
   const { user } = useUser();
   const [resumeId, setResumeId] = useLocalStorage("resumeId");
-  const { setIsFormSubmitted, setResumeData } = useContext(Context);
+  const { setIsFormSubmitted, setResumeData, resumeData } = useContext(Context);
 
   const onChange = (content) => {
     setValue(content);
     console.log(content);
   };
+
+  useEffect(() => {
+    console.log(resumeData);
+  }, [resumeData]);
 
   const handleSummarySave = () => {
     setResumeData((prev) => ({ ...prev, summary: value }));

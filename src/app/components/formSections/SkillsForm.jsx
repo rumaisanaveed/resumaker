@@ -16,7 +16,13 @@ const SkillsForm = () => {
   const { setIsFormSubmitted, setResumeData } = useContext(Context);
 
   const handleSkillsSave = (values) => {
-    setResumeData((prev) => ({ ...prev, skills: { ...values } }));
+    setResumeData((prev) => ({
+      ...prev,
+      skills: {
+        programming: [...values.programming],
+        toolsAndPlatforms: [...values.toolsAndPlatforms],
+      },
+    }));
     withLoading(
       () =>
         handleSave(values, "skills", {}, resumeId, user.id, setIsFormSubmitted),

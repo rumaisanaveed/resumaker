@@ -11,6 +11,11 @@ export const Skills = () => {
   const programmingSkills = formatArray(skills?.programming);
   const tools = formatArray(skills?.toolsAndPlatforms);
 
+  useEffect(() => {
+    console.log("Skills", programmingSkills);
+    console.log("Tools", tools);
+  }, [programmingSkills, tools]);
+
   return (
     <>
       {skills && (

@@ -11,11 +11,14 @@ import { toast } from "sonner";
 import { useUser } from "@clerk/nextjs";
 import { saveToFirestore } from "../utils/apiHandler";
 import Context from "../context/Context";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 export default function Page() {
   const [loader, setLoader] = useState(false);
   const { user } = useUser();
-  const { setIsFormSubmitted } = useContext(Context);
+  const { setIsFormSubmitted, resumeTitle, setActiveFormStep, setResumeData } =
+    useContext(Context);
+  const [resumeId, setResumeId] = useLocalStorage("resumeId");
 
   const handleGeneratePdf = async () => {
     const capture = document.querySelector(".resume");
@@ -24,11 +27,10 @@ export default function Page() {
       const canvas = await html2canvas(capture);
       const imageData = canvas.toDataURL("image/png");
       // Save the image to Firestore
-      const imageName = `resume_${user.id}_${Date.now()}.png`; // Create a unique image name
       await saveToFirestore(
-        ["users", user.id, "resumes", imageName],
+        ["users", user.id, "resumes", resumeId],
         {
-          image: imageData,
+          resumeImage: imageData,
         },
         setIsFormSubmitted
       );
@@ -37,7 +39,9 @@ export default function Page() {
       const componentWidth = doc.internal.pageSize.getWidth();
       const componentHeight = doc.internal.pageSize.getHeight();
       doc.addImage(imageData, "PNG", 0, 0, componentWidth, componentHeight);
-      doc.save("resume.pdf");
+      doc.save(`${resumeTitle}.pdf`);
+      setActiveFormStep(1);
+      setResumeData({});
     } catch (error) {
       console.error("Error generating PDF and saving image:", error);
       toast.error("An error occurred while generating the resume.");

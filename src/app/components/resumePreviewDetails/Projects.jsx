@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { SectionHeading } from "./SectionHeading";
 import { Separator } from "../UI/Separator";
 import Context from "@/app/context/Context";
@@ -8,6 +8,11 @@ export const Projects = () => {
   const { resumeData } = useContext(Context);
   const { projectDetails } = resumeData;
   const formattedTechStack = formatArray(projectDetails?.techStack);
+
+  useEffect(() => {
+    console.log(projectDetails?.description);
+  }, [projectDetails?.description]);
+
   return (
     <>
       {projectDetails && (

@@ -24,7 +24,7 @@ export const Education = () => {
             </div>
             <div className="flex flex-col col-span-1 w-full text-left md:text-right">
               <h1 className="font-semibold">
-                {education?.universityCountry} - {education?.universityCity}
+                {education?.universityCity} - {education?.universityCountry}
               </h1>
               <h2 className="italic">
                 {education?.startDate} - {education?.endDate}

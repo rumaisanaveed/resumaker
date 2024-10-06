@@ -30,6 +30,7 @@ const ProjectsForm = () => {
       ...prev,
       projectDetails: {
         ...values,
+        techStack: [...values.techStack],
         startDate: formattedStartDate,
         endDate: formattedEndDate,
       },

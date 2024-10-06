@@ -23,7 +23,7 @@ export const saveToFirestore = async (
   const ref = doc(db, ...collectionPath);
   await setDoc(ref, data, { merge: true });
   toast.success("Data saved successfully");
-  setIsFormSubmitted(true); // Update form submission state
+  setIsFormSubmitted(true);
 };
 
 export const handleSave = async (
