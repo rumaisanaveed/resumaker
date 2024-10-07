@@ -6,7 +6,7 @@ export const FormCompletedMessage = () => {
       <h1 className="font-medium text-black text-2xl">
         Success! Your Form submission is completed...
       </h1>
-      <h2>Wait, while we're navigating you to download your resume!</h2>
+      <h2>Wait, while we&apos;re navigating you to download your resume!</h2>
     </div>
   );
 };
