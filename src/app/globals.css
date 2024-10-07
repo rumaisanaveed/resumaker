@@ -135,3 +135,12 @@
     display: block;
   }
 }
+
+.rich-text-container ol {
+  list-style-type: decimal; /* Makes sure the ordered list uses numbers */
+  padding-left: 20px; /* Indents the list */
+}
+
+.rich-text-container li {
+  margin-bottom: 8px; /* Adds some space between the list items */
+}

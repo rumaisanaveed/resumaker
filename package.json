@@ -10,8 +10,11 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^5.3.7",
+    "@react-pdf/renderer": "^4.0.0",
     "antd": "^5.20.3",
+    "dompurify": "^3.1.7",
     "firebase": "^10.13.1",
+    "html-react-parser": "^5.1.17",
     "html2canvas": "^1.4.1",
     "jspdf": "^2.5.2",
     "next": "^14.2.13",

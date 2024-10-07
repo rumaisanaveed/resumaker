@@ -1,7 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { SectionHeading } from "./SectionHeading";
 import { Separator } from "../UI/Separator";
-import dummy from "@/app/data/dummy";
 import Context from "@/app/context/Context";
 import { formatArray } from "@/app/utils/formatArray";
 

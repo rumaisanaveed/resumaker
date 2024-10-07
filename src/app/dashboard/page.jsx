@@ -1,11 +1,9 @@
 import React from "react";
 import ProtectedLayout from "../components/routes/ProtectedRoute";
 import MainLayout from "../layouts/MainLayout";
-import { PiDotsThreeVerticalLight } from "react-icons/pi";
 import AddResume from "../components/AddResume";
-import { Dropdown } from "antd";
 import { ResponsiveWrapper } from "../components/ResponsiveWrapper";
-import Link from "next/link";
+import { Resumes } from "../components/Resumes";
 
 export const metadata = {
   title: "Dashboard - ResuMaker",
@@ -14,24 +12,6 @@ export const metadata = {
 };
 
 export default function Page() {
-  const items = [
-    {
-      key: "1",
-      label: <Link href="/view-resume">Edit</Link>,
-    },
-    {
-      key: "2",
-      label: <Link href="/view-resume">View</Link>,
-    },
-    {
-      key: "3",
-      label: <Link href="/view-resume">Download</Link>,
-    },
-    {
-      key: "4",
-      label: <Link href="/view-resume">Delete</Link>,
-    },
-  ];
   return (
     <ProtectedLayout>
       <MainLayout>
@@ -46,31 +26,7 @@ export default function Page() {
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 mt-6 md:mt-3 gap-5 w-3/4 sm:w-full mx-auto sm:mx-0">
                 <AddResume />
-                {Array.from({ length: 5 }, (_, index) => (
-                  <div
-                    key={index}
-                    className="relative shadow pt-2 flex items-center justify-center transition-all rounded-lg h-[350px] md:h-[300px] border-dashed"
-                  >
-                    <div className="resume-bg-image" />
-                    <div className="absolute bottom-0 pl-3 left-0 h-10 w-full bg-gray-100 rounded-b-lg flex items-center justify-between">
-                      <p className="text-sm text-black">Frontend Developer</p>
-                      <Dropdown
-                        menu={{
-                          items,
-                        }}
-                        placement="bottomRight"
-                      >
-                        <PiDotsThreeVerticalLight
-                          style={{
-                            fontSize: "25px",
-                            color: "black",
-                            fontWeight: "bold",
-                          }}
-                        />
-                      </Dropdown>
-                    </div>
-                  </div>
-                ))}
+                <Resumes />
               </div>
             </div>
           </div>

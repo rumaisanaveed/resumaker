@@ -16,7 +16,7 @@ import useLocalStorage from "../hooks/useLocalStorage";
 export default function Page() {
   const [loader, setLoader] = useState(false);
   const { user } = useUser();
-  const { setIsFormSubmitted, resumeTitle, setActiveFormStep, setResumeData } =
+  const { setIsFormSubmitted, resumeTitle, setActiveFormStep } =
     useContext(Context);
   const [resumeId, setResumeId] = useLocalStorage("resumeId");
 
@@ -41,7 +41,6 @@ export default function Page() {
       doc.addImage(imageData, "PNG", 0, 0, componentWidth, componentHeight);
       doc.save(`${resumeTitle}.pdf`);
       setActiveFormStep(1);
-      setResumeData({});
     } catch (error) {
       console.error("Error generating PDF and saving image:", error);
       toast.error("An error occurred while generating the resume.");
