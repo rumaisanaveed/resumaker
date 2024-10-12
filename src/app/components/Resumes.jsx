@@ -78,7 +78,7 @@ export const Resumes = () => {
       {isResumesLoading && resumes.length === 0 && (
         <>
           {Array.from({ length: 10 }).map((_, index) => (
-            <SkeletonLoader />
+            <SkeletonLoader key={index} />
           ))}
         </>
       )}
