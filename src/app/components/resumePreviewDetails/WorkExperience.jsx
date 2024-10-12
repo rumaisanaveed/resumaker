@@ -2,10 +2,15 @@ import React, { useContext } from "react";
 import { SectionHeading } from "./SectionHeading";
 import { Separator } from "../UI/Separator";
 import Context from "@/app/context/Context";
+import styleLists from "@/app/utils/styleLists";
 
 export const WorkExperience = () => {
   const { resumeData } = useContext(Context);
   const { experienceData } = resumeData;
+
+  const formattedSummary = experienceData?.jobSummary
+    ? styleLists(experienceData?.jobSummary)
+    : "";
 
   return (
     <>
@@ -24,7 +29,7 @@ export const WorkExperience = () => {
             </div>
             <div
               className="pt-2"
-              dangerouslySetInnerHTML={{ __html: experienceData?.jobSummary }}
+              dangerouslySetInnerHTML={{ __html: formattedSummary }}
             />
           </div>
         </div>

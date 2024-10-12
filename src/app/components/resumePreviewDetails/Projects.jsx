@@ -3,11 +3,15 @@ import { SectionHeading } from "./SectionHeading";
 import { Separator } from "../UI/Separator";
 import Context from "@/app/context/Context";
 import { formatArray } from "@/app/utils/formatArray";
+import styleLists from "@/app/utils/styleLists";
 
 export const Projects = () => {
   const { resumeData } = useContext(Context);
   const { projectDetails } = resumeData;
   const formattedTechStack = formatArray(projectDetails?.techStack);
+  const formattedDescrition = projectDetails?.description
+    ? styleLists(projectDetails?.description)
+    : "";
 
   return (
     <>
@@ -39,7 +43,7 @@ export const Projects = () => {
           </div>
           <div
             className="mt-2"
-            dangerouslySetInnerHTML={{ __html: projectDetails?.description }}
+            dangerouslySetInnerHTML={{ __html: formattedDescrition }}
           />
         </div>
       )}
