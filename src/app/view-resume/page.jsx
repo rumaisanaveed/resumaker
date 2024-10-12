@@ -16,36 +16,42 @@ import useLocalStorage from "../hooks/useLocalStorage";
 export default function Page() {
   const [loader, setLoader] = useState(false);
   const { user } = useUser();
-  const { setIsFormSubmitted, resumeTitle, setActiveFormStep } =
+  const { setIsFormSubmitted, resumeTitle, setActiveFormStep, resumeData } =
     useContext(Context);
   const [resumeId, setResumeId] = useLocalStorage("resumeId");
 
   const handleGeneratePdf = async () => {
-    const capture = document.querySelector(".resume");
-    setLoader(true);
-    try {
-      const canvas = await html2canvas(capture);
-      const imageData = canvas.toDataURL("image/png");
-      // Save the image to Firestore
-      await saveToFirestore(
-        ["users", user.id, "resumes", resumeId],
-        {
-          resumeImage: imageData,
-        },
-        setIsFormSubmitted
+    if (Object.keys(resumeData).length !== 0) {
+      const capture = document.querySelector(".resume");
+      setLoader(true);
+      try {
+        const canvas = await html2canvas(capture);
+        const imageData = canvas.toDataURL("image/png");
+        // Save the image to Firestore
+        await saveToFirestore(
+          ["users", user.id, "resumes", resumeId],
+          {
+            resumeImage: imageData,
+          },
+          setIsFormSubmitted
+        );
+        // Generate PDF
+        const doc = new jsPDF("p", "mm", "a4");
+        const componentWidth = doc.internal.pageSize.getWidth();
+        const componentHeight = doc.internal.pageSize.getHeight();
+        doc.addImage(imageData, "PNG", 0, 0, componentWidth, componentHeight);
+        doc.save(`${resumeTitle}.pdf`);
+        setActiveFormStep(1);
+      } catch (error) {
+        console.error("Error generating PDF and saving image:", error);
+        toast.error("An error occurred while generating the resume.");
+      } finally {
+        setLoader(false);
+      }
+    } else {
+      toast.error(
+        "Resume data is empty. Please fill in the details before generating."
       );
-      // Generate PDF
-      const doc = new jsPDF("p", "mm", "a4");
-      const componentWidth = doc.internal.pageSize.getWidth();
-      const componentHeight = doc.internal.pageSize.getHeight();
-      doc.addImage(imageData, "PNG", 0, 0, componentWidth, componentHeight);
-      doc.save(`${resumeTitle}.pdf`);
-      setActiveFormStep(1);
-    } catch (error) {
-      console.error("Error generating PDF and saving image:", error);
-      toast.error("An error occurred while generating the resume.");
-    } finally {
-      setLoader(false);
     }
   };
 

@@ -43,7 +43,7 @@ export default function AddResume() {
   return (
     <>
       <div
-        className="hover:scale-105 flex items-center justify-center transition-all rounded-lg hover:shadow-md bg-gray-100 h-[350px] md:h-[300px] cursor-pointer border-dashed"
+        className="hover:scale-105 flex items-center justify-center transition-all rounded-lg hover:shadow-md w-[300px] sm:w-full bg-gray-100 h-[350px] md:h-[300px] cursor-pointer border-dashed"
         onClick={handleModalOpen}
       >
         <CiSquarePlus

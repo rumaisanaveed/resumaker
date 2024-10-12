@@ -1,10 +1,12 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { ViewOnDesktopMessage } from "./ViewOnDesktopMessage";
+import { useScreenSize } from "../hooks/useScreenSize";
 
 export const ResponsiveWrapper = ({ children }) => {
   const [isClient, setIsClient] = useState(false);
   const [loading, setLoading] = useState(true);
+  const { isDesktop } = useScreenSize();
 
   useEffect(() => {
     setIsClient(true);
@@ -25,13 +27,7 @@ export const ResponsiveWrapper = ({ children }) => {
       </div>
 
       {/* Show the content or spinner on large screens */}
-      <div className="lg:block">
-        {loading ? (
-          <LoadingSpinner />
-        ) : (
-          <>{children}</> // Display content once loading is done
-        )}
-      </div>
+      {isDesktop && <>{loading ? <LoadingSpinner /> : <>{children}</>}</>}
     </>
   );
 };

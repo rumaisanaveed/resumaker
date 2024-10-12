@@ -3,10 +3,13 @@ import { toast } from "sonner";
 import { db } from "../firebaseConfig";
 import { formatDate } from "./formatDate";
 
-export const withLoading = async (callback, setLoading) => {
+export const withLoading = async (callback, setLoading, onSuccess) => {
   setLoading(true);
   try {
     await callback();
+    if (onSuccess) {
+      onSuccess();
+    }
   } catch (error) {
     console.error(error);
     toast.error("An error occurred. Try again!");

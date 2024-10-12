@@ -1,20 +1,24 @@
 "use client";
 import { useUser } from "@clerk/nextjs";
-import { Dropdown } from "antd";
 import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
-import Link from "next/link";
 import React, { useContext, useEffect, useState } from "react";
-import { PiDotsThreeVerticalLight } from "react-icons/pi";
 import { db } from "../firebaseConfig";
-import { MdEditDocument } from "react-icons/md";
 import { withLoading } from "../utils/apiHandler";
 import Context from "../context/Context";
+import { SkeletonLoader } from "./SkeletonLoader";
+import { ShowResumes } from "./ShowResumes";
+import { toast } from "sonner";
 
 export const Resumes = () => {
-  const [resumes, setResumes] = useState([]);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const { setResumeData } = useContext(Context);
+  const [showNoResumesMessage, setShowNoResumesMessage] = useState(false);
+  const {
+    setResumeData,
+    isResumesLoading,
+    setIsResumesLoading,
+    resumes,
+    setResumes,
+  } = useContext(Context);
   const { user } = useUser();
 
   const getResumeList = async () => {
@@ -30,7 +34,7 @@ export const Resumes = () => {
         setResumes(userResumes);
       }
     };
-    await withLoading(fetchResumes, setLoading);
+    await withLoading(fetchResumes, setIsResumesLoading);
   };
 
   useEffect(() => {
@@ -51,58 +55,47 @@ export const Resumes = () => {
       }
     };
 
-    await withLoading(deleteResume, setIsDeleting);
+    await withLoading(deleteResume, setIsDeleting, () => {
+      toast.success("Resume deleted successfully!");
+    });
   };
+
+  useEffect(() => {
+    if (!isResumesLoading && resumes.length === 0) {
+      const timeoutId = setTimeout(() => {
+        setShowNoResumesMessage(true);
+      }, 2000);
+      return () => {
+        clearTimeout(timeoutId);
+      };
+    } else {
+      setShowNoResumesMessage(false);
+    }
+  }, [isResumesLoading, resumes]);
 
   return (
     <>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
+      {isResumesLoading && resumes.length === 0 && (
         <>
-          {resumes.map((resume) => (
-            <div
-              key={resume.id}
-              className="relative shadow pt-2 flex items-center justify-center transition-all rounded-lg h-[350px] md:h-[300px] border-dashed"
-            >
-              <MdEditDocument style={{ color: resume.color, fontSize: 50 }} />
-              <div className="absolute bottom-0 pl-3 left-0 h-10 w-full bg-gray-100 rounded-b-lg flex items-center justify-between">
-                <p className="text-sm text-black">{resume.resumeTitle}</p>
-                <Dropdown
-                  menu={{
-                    items: [
-                      {
-                        key: "1",
-                        label: (
-                          <p
-                            className="cursor-pointer"
-                            onClick={() => handleDelete(resume.id)}
-                          >
-                            {isDeleting ? <>Deleting</> : <>Delete</>}
-                          </p>
-                        ),
-                      },
-                      {
-                        key: "2",
-                        label: <Link href="/view-resume">Edit</Link>,
-                      },
-                    ],
-                  }}
-                  placement="bottomRight"
-                >
-                  <PiDotsThreeVerticalLight
-                    style={{
-                      fontSize: "25px",
-                      color: "black",
-                      fontWeight: "bold",
-                      cursor: "pointer",
-                    }}
-                  />
-                </Dropdown>
-              </div>
-            </div>
+          {Array.from({ length: 10 }).map((_, index) => (
+            <SkeletonLoader />
           ))}
         </>
+      )}
+
+      {!isResumesLoading && resumes.length > 0 && (
+        <ShowResumes
+          resumes={resumes}
+          isDeleting={isDeleting}
+          handleDelete={handleDelete}
+        />
+      )}
+
+      {!isResumesLoading && resumes.length === 0 && showNoResumesMessage && (
+        <div className="mt-4 lg:mt-0 text-2xl">
+          <p>No resumes found...</p>
+          <p>Start by creating one!!</p>
+        </div>
       )}
     </>
   );
