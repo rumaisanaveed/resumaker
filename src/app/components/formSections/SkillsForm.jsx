@@ -60,6 +60,7 @@ const SkillsForm = () => {
         onFinish={handleSkillsSave}
         layout="vertical"
         name="projects-form"
+        autoComplete="off"
       >
         <Form.Item
           label="Programming"

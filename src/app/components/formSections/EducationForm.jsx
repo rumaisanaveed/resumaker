@@ -55,6 +55,7 @@ const EducationForm = () => {
         layout="vertical"
         name="projects-form"
         onFinish={handleEducationSave}
+        autoComplete="off"
       >
         <Form.Item
           label="University"
@@ -64,7 +65,7 @@ const EducationForm = () => {
             { required: true, message: "Please input your university name!" },
           ]}
         >
-          <Input className="py-2" placeholder="Enter university name..." />
+          <Input className="py-2" placeholder="e.g; University of Karachi" />
         </Form.Item>
         <Form.Item
           label="Degree"
@@ -76,7 +77,7 @@ const EducationForm = () => {
         >
           <Input
             className="py-2"
-            placeholder="Enter your university degree..."
+            placeholder="Bachelor's in Software Engineering"
           />
         </Form.Item>
         <Form.Item
@@ -87,10 +88,7 @@ const EducationForm = () => {
             { required: true, message: "Please input the university city!" },
           ]}
         >
-          <Input
-            className="w-full py-2"
-            placeholder="Enter the city in which the university is located.."
-          />
+          <Input className="w-full py-2" placeholder="e.g; Karachi" />
         </Form.Item>
         <Form.Item
           label="Country"
@@ -103,10 +101,7 @@ const EducationForm = () => {
             },
           ]}
         >
-          <Input
-            className="w-full py-2"
-            placeholder="Enter the country in which the university is located.."
-          />
+          <Input className="w-full py-2" placeholder="e.g; Pakistan" />
         </Form.Item>
         <Form.Item
           label="Start Date"
@@ -114,10 +109,7 @@ const EducationForm = () => {
           name="universityStartDate"
           rules={[{ required: true, message: "Please input start date!" }]}
         >
-          <DatePicker
-            className="w-full py-2"
-            placeholder="Enter your admission date.."
-          />
+          <DatePicker className="w-full py-2" placeholder="Enter date.." />
         </Form.Item>
         <Form.Item
           label="End Date"
@@ -125,10 +117,7 @@ const EducationForm = () => {
           className="col-span-2 lg:col-span-1"
           rules={[{ required: true, message: "Please input end date!" }]}
         >
-          <DatePicker
-            placeholder="Enter your graduation date.."
-            className="w-full py-2"
-          />
+          <DatePicker placeholder="Enter date.." className="w-full py-2" />
         </Form.Item>
         <Form.Item
           label="CGPA"
@@ -143,7 +132,7 @@ const EducationForm = () => {
         >
           <Input
             className="w-full py-2"
-            placeholder="Enter the current cpga out of 4.."
+            placeholder="Enter your current cgpa.."
           />
         </Form.Item>
         <Form.Item>

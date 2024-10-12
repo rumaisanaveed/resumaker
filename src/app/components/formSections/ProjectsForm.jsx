@@ -77,6 +77,7 @@ const ProjectsForm = () => {
         layout="vertical"
         name="projects-form"
         onFinish={handleProjectsSave}
+        autoComplete="off"
       >
         <Form.Item
           label="Name"
@@ -84,7 +85,7 @@ const ProjectsForm = () => {
           className="col-span-2 lg:col-span-1"
           rules={[{ required: true, message: "Please input position title!" }]}
         >
-          <Input className="py-2" placeholder="Enter project name..." />
+          <Input className="py-2" placeholder="e.g; Emoji Vault" />
         </Form.Item>
         <Form.Item
           label="Tech Stack"
@@ -113,7 +114,7 @@ const ProjectsForm = () => {
         >
           <Input
             className="w-full py-2"
-            placeholder="Enter project's live link.."
+            placeholder="e.g; https://emoji-vault.vercel.app"
           />
         </Form.Item>
         <Form.Item
@@ -127,7 +128,7 @@ const ProjectsForm = () => {
         >
           <Input
             className="w-full py-2"
-            placeholder="Enter project's GitHub link.."
+            placeholder="e.g; https://github.com/rumaisanaveed/emoji-vault.git"
           />
         </Form.Item>
         <Form.Item
@@ -136,7 +137,7 @@ const ProjectsForm = () => {
           name="projectStartDate"
           rules={[{ required: true, message: "Please input start date!" }]}
         >
-          <DatePicker className="w-full py-2" />
+          <DatePicker className="w-full py-2" placeholder="Enter date.." />
         </Form.Item>
         <Form.Item
           label="End Date"
@@ -144,7 +145,7 @@ const ProjectsForm = () => {
           className="col-span-2 lg:col-span-1"
           rules={[{ required: true, message: "Please input end date!" }]}
         >
-          <DatePicker className="w-full py-2" />
+          <DatePicker className="w-full py-2" placeholder="Enter date.." />
         </Form.Item>
         <Form.Item
           label="Description"

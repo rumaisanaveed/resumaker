@@ -56,7 +56,7 @@ const PersonalDetailsForm = () => {
           ]}
         >
           <Input
-            placeholder="Enter your name..."
+            placeholder="e.g; Rumaisa Naveed"
             className={`${inputYPadding}`}
           />
         </Form.Item>
@@ -68,12 +68,12 @@ const PersonalDetailsForm = () => {
             {
               required: true,
               message: "Please input your email!",
-              type: "email", // Adding validation for email format
+              type: "email",
             },
           ]}
         >
           <Input
-            placeholder="Enter your email address..."
+            placeholder="e.g; abc@gmail.com"
             className={`${inputYPadding}`}
           />
         </Form.Item>
@@ -85,12 +85,12 @@ const PersonalDetailsForm = () => {
             {
               required: true,
               message: "Please input your phone number!",
-              pattern: /^\d+$/, // Adding validation to accept only numbers
+              pattern: /^\d+$/,
             },
           ]}
         >
           <Input
-            placeholder="Enter your phone number..."
+            placeholder="e.g; 99999999999"
             className={`${inputYPadding}`}
           />
         </Form.Item>
@@ -100,13 +100,13 @@ const PersonalDetailsForm = () => {
           name="portfolioWebsite"
           rules={[
             {
-              type: "url", // Adding validation for URL format
+              type: "url",
               message: "Please enter a valid URL!",
             },
           ]}
         >
           <Input
-            placeholder="Enter your portfolio URL..."
+            placeholder="e.g; https://rumaisa.tech"
             className={`${inputYPadding}`}
           />
         </Form.Item>

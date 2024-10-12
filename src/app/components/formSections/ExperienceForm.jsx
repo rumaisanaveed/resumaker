@@ -62,6 +62,7 @@ const ExperienceForm = () => {
         layout="vertical"
         name="experience-form"
         onFinish={handleExperienceSave}
+        autoComplete="off"
       >
         <Form.Item
           label="Position Title"
@@ -69,7 +70,7 @@ const ExperienceForm = () => {
           className="col-span-2 lg:col-span-1"
           rules={[{ required: true, message: "Please input position title!" }]}
         >
-          <Input className="py-2" />
+          <Input className="py-2" placeholder="e.g; Full Stack Developer" />
         </Form.Item>
         <Form.Item
           label="Company Name"
@@ -77,7 +78,7 @@ const ExperienceForm = () => {
           className="col-span-2 lg:col-span-1"
           rules={[{ required: true, message: "Please input company name!" }]}
         >
-          <Input className="py-2" />
+          <Input className="py-2" placeholder="e.g; Tehcno world" />
         </Form.Item>
         <Form.Item
           label="Start Date"
@@ -85,7 +86,7 @@ const ExperienceForm = () => {
           name="startDate"
           rules={[{ required: true, message: "Please input start date!" }]}
         >
-          <DatePicker className="w-full py-2" />
+          <DatePicker className="w-full py-2" placeholder="Enter date.." />
         </Form.Item>
         <Form.Item
           label="End Date"
@@ -93,7 +94,7 @@ const ExperienceForm = () => {
           className="col-span-2 lg:col-span-1"
           rules={[{ required: true, message: "Please input end date!" }]}
         >
-          <DatePicker className="w-full py-2" />
+          <DatePicker className="w-full py-2" placeholder="Enter date" />
         </Form.Item>
         <Form.Item
           label="Summary"
