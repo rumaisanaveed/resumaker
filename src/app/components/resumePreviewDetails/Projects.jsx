@@ -9,10 +9,6 @@ export const Projects = () => {
   const { projectDetails } = resumeData;
   const formattedTechStack = formatArray(projectDetails?.techStack);
 
-  useEffect(() => {
-    console.log(projectDetails?.description);
-  }, [projectDetails?.description]);
-
   return (
     <>
       {projectDetails && (

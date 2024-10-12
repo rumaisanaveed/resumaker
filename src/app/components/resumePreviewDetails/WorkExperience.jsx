@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { SectionHeading } from "./SectionHeading";
 import { Separator } from "../UI/Separator";
 import Context from "@/app/context/Context";
@@ -6,10 +6,6 @@ import Context from "@/app/context/Context";
 export const WorkExperience = () => {
   const { resumeData } = useContext(Context);
   const { experienceData } = resumeData;
-
-  useEffect(() => {
-    console.log(experienceData?.jobSummary);
-  }, [experienceData?.jobSummary]);
 
   return (
     <>

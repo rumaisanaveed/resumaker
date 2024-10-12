@@ -14,16 +14,12 @@ const SummaryForm = () => {
   const [loading, setLoading] = useState(false);
   const { user } = useUser();
   const [resumeId, setResumeId] = useLocalStorage("resumeId");
-  const { setIsFormSubmitted, setResumeData, resumeData } = useContext(Context);
+  const { setIsFormSubmitted, setResumeData } = useContext(Context);
 
   const onChange = (content) => {
     setValue(content);
     console.log(content);
   };
-
-  useEffect(() => {
-    console.log(resumeData);
-  }, [resumeData]);
 
   const handleSummarySave = () => {
     setResumeData((prev) => ({ ...prev, summary: value }));

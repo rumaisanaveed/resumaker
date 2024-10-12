@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { SectionHeading } from "./SectionHeading";
 import Context from "@/app/context/Context";
 
