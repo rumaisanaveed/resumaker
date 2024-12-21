@@ -69,17 +69,17 @@ Here's what you can do with **Resumaker**:
 - **Firebase Integration**:
   - As it was new for me to use firebase in a project, I learned how to configure firebase in a Next.js project and
   how to use that database to retrieve data.
--- **Rendering Html Canvas:**
+- **Rendering Html Canvas:**
   - The overall preview once the user entered all the information of his resume was quite challenging for me due to
   different screen sizes (laptop, mobile etc). In the end I selected A4 sized layout to display and download the
   resume on all screens.
---  **Resume Saving:**
+-  **Resume Saving:**
   - The usage of pdfjs and html canvas wasn't a good choice for me but even after searching the decent react pdf libraries
   I'd to stick with the html canvas and pdfjs for rendering and saving of resume due to the challenges each library had. 
--- **Constant State Persistent:**
+- **Constant State Persistent:**
   - The choice between saving the data all at once vs. to save the data after each step was a difficult task for me,
   though I made the decision to save the data after each step to prevent data loss.
--- **API Handling:**
+- **API Handling:**
   - I was familiar with API integration but I used best practices for integrating APIs so that my code doesn't break
   due to unhandled edge cases.
 -- 
