@@ -120,6 +120,6 @@ To run **Resumaker** in your local environment, follow these steps:
 ---
 
 ### 🍿 **Video**
-[**Watch the demo video here!**]()
+
 
 ---
