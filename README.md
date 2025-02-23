@@ -5,13 +5,14 @@ A resume generator built with **Next.js** and **Tailwind CSS**, focusing on them
 
 ---
 
-### 📦 **Technologies**
+### 📦 **Tools & Technologies**
 - **Next.js 13** (App directory)
 - **React.js**
 - **JavaScript**
 - **Tailwind CSS**
 - **Firebase**
 - **Clerk** (for authentication)
+- **JIRA** (for bug reporting & tracking)
 
 ---
 
@@ -86,6 +87,19 @@ Here's what you can do with **Resumaker**:
 
 ---
 
+### Testing
+- Designed and executed comprehensive test scenarios and cases using Notion, ensuring
+maximum test coverage.
+- Identified, documented, and tracked 20+ defects in JIRA, improving project stability and user
+experience.
+- Created detailed defect reports, streamlining bug tracking and resolution processes for faster
+issue mitigation.
+- Assigned accurate bug severity levels, enabling to prioritize critical issues and enhance client
+satisfaction.
+- Conducted comprehensive regression testing on post-bug fixes to ensure that recent code changes did not introduce new defects, maintaining overall system stability and functionality.
+
+---
+
 ### 💭 **How can it be improved?**
 - Add drag-and-drop functionality for rearranging sections.
 - Add and remove sections of their choice. 
@@ -119,7 +133,4 @@ To run **Resumaker** in your local environment, follow these steps:
 
 ---
 
-### 🍿 **Video**
-
-
----
+**Developed & Tested by Rumaisa**
