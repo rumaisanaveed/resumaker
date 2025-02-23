@@ -13,6 +13,7 @@ A resume generator built with **Next.js** and **Tailwind CSS**, focusing on them
 - **Firebase**
 - **Clerk** (for authentication)
 - **JIRA** (for bug reporting & tracking)
+- **Notion** (for project and testing documentation)
 
 ---
 
@@ -82,8 +83,7 @@ Here's what you can do with **Resumaker**:
   though I made the decision to save the data after each step to prevent data loss.
 - **API Handling:**
   - I was familiar with API integration but I used best practices for integrating APIs so that my code doesn't break
-  due to unhandled edge cases.
--- 
+  due to unhandled edge cases. 
 
 ---
 
@@ -97,6 +97,8 @@ issue mitigation.
 - Assigned accurate bug severity levels, enabling to prioritize critical issues and enhance client
 satisfaction.
 - Conducted comprehensive regression testing on post-bug fixes to ensure that recent code changes did not introduce new defects, maintaining overall system stability and functionality.
+
+**Check the Testing Documentation here** : [Emoji Vault Testing Documentation](https://resumaker-testing-documentation.notion.site/Emoji-Vault-Project-Testing-1a20d1931ce98053869de4b2d2611ea3?pvs=74)
 
 ---
 
