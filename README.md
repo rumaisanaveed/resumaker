@@ -98,7 +98,7 @@ issue mitigation.
 satisfaction.
 - Conducted comprehensive regression testing on post-bug fixes to ensure that recent code changes did not introduce new defects, maintaining overall system stability and functionality.
 
-**Check the Testing Documentation here** : [Emoji Vault Testing Documentation](https://resumaker-testing-documentation.notion.site/Emoji-Vault-Project-Testing-1a20d1931ce98053869de4b2d2611ea3?pvs=74)
+**Check the Testing Documentation here** : [ResuMaker Testing Documentation](https://resumaker-testing-documentation.notion.site/Emoji-Vault-Project-Testing-1a20d1931ce98053869de4b2d2611ea3?pvs=74)
 
 ---
 
