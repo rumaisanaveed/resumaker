@@ -1,5 +1,3 @@
----
-
 ### 📝 **Resumaker**
 A resume generator built with **Next.js** and **Tailwind CSS**, focusing on theme customization and ease of use. This project emphasizes functionality and user experience over templates by providing editable themes for professional resumes.
 
@@ -12,8 +10,6 @@ A resume generator built with **Next.js** and **Tailwind CSS**, focusing on them
 - **Tailwind CSS**
 - **Firebase**
 - **Clerk** (for authentication)
-- **JIRA** (for bug reporting & tracking)
-- **Notion** (for project and testing documentation)
 
 ---
 
@@ -102,7 +98,7 @@ To run **Resumaker** in your local environment, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/rumaisanaveed/resumaker.git
    ```
 2. Navigate to the project directory:
    ```bash
@@ -117,5 +113,3 @@ To run **Resumaker** in your local environment, follow these steps:
    npm run dev
    ```
 5. Open [http://localhost:3000](http://localhost:3000) in your web browser to view the app.
-
----
