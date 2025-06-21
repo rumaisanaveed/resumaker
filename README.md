@@ -87,21 +87,6 @@ Here's what you can do with **Resumaker**:
 
 ---
 
-### Testing
-- Designed and executed comprehensive test scenarios and cases using Notion, ensuring
-maximum test coverage.
-- Identified, documented, and tracked 20+ defects in JIRA, improving project stability and user
-experience.
-- Created detailed defect reports, streamlining bug tracking and resolution processes for faster
-issue mitigation.
-- Assigned accurate bug severity levels, enabling to prioritize critical issues and enhance client
-satisfaction.
-- Conducted comprehensive regression testing on post-bug fixes to ensure that recent code changes did not introduce new defects, maintaining overall system stability and functionality.
-
-**Check the Testing Documentation here** : [ResuMaker Testing Documentation](https://resumaker-testing-documentation.notion.site/Emoji-Vault-Project-Testing-1a20d1931ce98053869de4b2d2611ea3?pvs=74)
-
----
-
 ### 💭 **How can it be improved?**
 - Add drag-and-drop functionality for rearranging sections.
 - Add and remove sections of their choice. 
@@ -134,5 +119,3 @@ To run **Resumaker** in your local environment, follow these steps:
 5. Open [http://localhost:3000](http://localhost:3000) in your web browser to view the app.
 
 ---
-
-**Developed & Tested by Rumaisa**
